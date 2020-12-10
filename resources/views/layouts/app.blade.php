@@ -49,9 +49,9 @@
                               <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
                             @endcan
 
-                            @can('roles-list')
+                            @can('role-list')
                           
-                        <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
+                             <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
                                 
                             @endcan
                         {{-- <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li> --}}
