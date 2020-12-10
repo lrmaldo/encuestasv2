@@ -21,7 +21,10 @@
 ## Diseño de la base de datos 
 
 ![alt text](https://github.com/lrmaldo/encuestasv2/blob/master/modelo_encuestas.png?raw=true)
-
+<p align="center">
+  <img src="https://github.com/lrmaldo/encuestasv2/blob/master/img_db/modelo_encuestas.png?raw=true" width="100%" title="hover text">
+  <!-- <img src="https://github.com/lrmaldo/encuestasv2/blob/master/img_db/modelo_encuestas.png?raw=true" width="100%" alt="accessibility text"> -->
+</p>
 
 
 ## modulo de administracion de roles de usuario 
