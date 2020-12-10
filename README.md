@@ -6,6 +6,31 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+ 
+
+## Información del proyecto
+
+# Requerimiento 
+
+- PHP version 7.0 >
+- Apache 2.0
+- MySQL 5.7.28
+- Laravel Framework 8
+
+
+## Diseño de la base de datos 
+
+![alt text](https://github.com/lrmaldo/encuestasv2/blob/master/modelo_encuestas.jpg?raw=true)
+
+
+
+## modulo de administracion de roles de usuario 
+
+- RoleController.php
+- UserController.php
+
+
+
 
 ## About Laravel
 
