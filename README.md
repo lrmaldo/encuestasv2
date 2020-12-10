@@ -20,7 +20,7 @@
 
 ## Diseño de la base de datos 
 
-![alt text](https://github.com/lrmaldo/encuestasv2/blob/master/modelo_encuestas.jpg?raw=true)
+![alt text](https://github.com/lrmaldo/encuestasv2/blob/master/modelo_encuestas.png?raw=true)
 
 
 
