@@ -29,3 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('preguntas', PreguntasController::class);
 });
+
+Route::get('example', function () {
+    return view('exam.index');
+});
