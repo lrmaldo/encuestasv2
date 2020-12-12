@@ -17,7 +17,8 @@ use App\Http\Controllers\PreguntasController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   // return view('welcome');
+   return redirect('register');
 });
 
 Auth::routes();

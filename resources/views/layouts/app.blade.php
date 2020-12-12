@@ -26,6 +26,11 @@
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+
+  {{-- css databases --}}
+    {{-- css datatable --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
     @livewireStyles
@@ -103,7 +108,25 @@
       <div class="sidebar-heading">
        Herramientas
       </div>
-
+      @guest
+      @else
+      {{-- roles --}}
+       @can('user-list')
+         <!-- Nav Item - users -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('users.index') }}">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Gestión de usuarios</span></a>
+      </li> 
+       @endcan
+       @can('role-list')
+       <li class="nav-item">
+        <a class="nav-link" href="{{ route('roles.index') }}">
+          <i class="fas fa-fw fa-users-cog"></i>
+          <span>Gestión de Roles</span></a>
+      </li> 
+       @endcan   
+      @endguest
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
@@ -115,16 +138,16 @@
       <li class="nav-item">
         <a class="nav-link" href="charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+          <span>Gráficos</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
+     {{--  <li class="nav-item">
         <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
-
+ --}}
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -291,7 +314,12 @@
 
   <!-- Custom scripts for all pages-->
   <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+  <!-- Page level plugins -->
+  <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
+  <!-- Page level custom scripts -->
+  <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 
 </body>
 </html>
