@@ -128,5 +128,5 @@
     {!! $data->render() !!}
  --}}
 
-    <p class="text-center text-primary"><small>Encuestas </small></p>
+
 @endsection

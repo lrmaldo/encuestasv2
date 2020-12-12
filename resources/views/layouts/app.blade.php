@@ -125,14 +125,17 @@
           <i class="fas fa-fw fa-users-cog"></i>
           <span>Gestión de Roles</span></a>
       </li> 
-       @endcan   
-      @endguest
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+       @endcan 
+       @can('encuestas lista')
+       <li class="nav-item">
+        <a class="nav-link" href="{{ route('encuestas.index') }}">
           <i class="fas fa-fw fa-file-alt"></i>
           <span>Encuestas</span></a>
       </li>
+      @endcan  
+      @endguest
+      <!-- Nav Item - Pages Collapse Menu -->
+      
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
