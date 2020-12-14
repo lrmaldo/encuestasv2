@@ -38,13 +38,45 @@
 
     <div class="card-body">
         <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <th>No</th>
+                    <th>Titulo</th>
 
+                    <th>Tipo de pregunta</th>
+                    <th width="280px">Accion</th>
+                </thead>
+                <tbody>
+                    @foreach ($preguntas as $key => $item)
+                    <tr>
+                        <td>{{$item->id}}</td>
+                        <td>{{ $item->titulo }}</td>
+
+                        <td>{{$item->tipo_pregunta_id}}</td>
+                        {{-- <td>
+                            @if (!empty($user->getRoleNames()))
+                                @foreach ($user->getRoleNames() as $v)
+                                    <label class="badge badge-success">{{ $v }}</label>
+                                @endforeach
+                            @endif
+                        </td> --}}
+                        <td>
+                            <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}">Respuestas</a>
+                            <a class="btn btn-primary" href="{{ route('encuestas.edit', $item->id) }}">Editar</a>
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['encuestas.destroy', $item->id], 'style' =>
+                            'display:inline']) !!}
+                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
            {{--  {!! $data->render() !!} --}}
 
 
         </div>
     </div>
-
 
 </div>
 

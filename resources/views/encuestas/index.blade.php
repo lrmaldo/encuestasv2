@@ -40,22 +40,23 @@
                     <th>No</th>
                     <th>Titulo</th>
                     <th>Descripcion</th>
-                   
+                    <th>Tipo de encuesta</th>
                     <th width="280px">Accion</th>
                 </thead>
                 <tbody>
                     @foreach ($data as $key => $item)
                     <tr>
-                        <td></td>
+                        <td>{{$item->id}}</td>
                         <td>{{ $item->titulo }}</td>
                         <td>{{ $item->descripcion }}</td>
-                        <td>
-                           {{--  @if (!empty($user->getRoleNames()))
+                        <td>{{$item->tipo_encuesta_id}}</td>
+                        {{-- <td>
+                            @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)
                                     <label class="badge badge-success">{{ $v }}</label>
                                 @endforeach
-                            @endif --}}
-                        </td>
+                            @endif
+                        </td> --}}
                         <td>
                             <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}">Preguntas</a>
                             <a class="btn btn-primary" href="{{ route('encuestas.edit', $item->id) }}">Editar</a>
@@ -70,7 +71,7 @@
             </table>
            {{--  {!! $data->render() !!} --}}
 
-        
+
         </div>
     </div>
 

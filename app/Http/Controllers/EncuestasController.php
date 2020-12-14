@@ -6,6 +6,7 @@ use App\Models\encuesta;
 use Illuminate\Http\Request;
 use App\Models\Tipo_encuesta;
 use App\Models\Tipo_pregunta;
+use App\Models\Pregunta;
 class EncuestasController extends Controller
 {
     /**
@@ -65,7 +66,8 @@ class EncuestasController extends Controller
 
         $encuesta = encuesta::find($id);
         $tipos_preguntas = Tipo_pregunta::all();
-        return view('encuestas.show',compact('encuesta','tipos_preguntas'));
+        $preguntas = Pregunta::where('encuesta_id','=',$id)->get();
+        return view('encuestas.show',compact('encuesta','tipos_preguntas','preguntas'));
 
     }
 
