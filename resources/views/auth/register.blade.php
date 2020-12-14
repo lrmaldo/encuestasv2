@@ -43,7 +43,7 @@
             <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Crear usuario</h1>
-                <h3 class="h6 text-gray-900 mb-4" >Registrate para contestar la siguiente encuesta</h3>
+                <h3 class="h6 text-gray-900 mb-4" >Programa de seguimiento a egresados y empleadores</h3>
               </div>
              
                 <form  class="user" method="POST" action="{{ route('register') }}">

@@ -30,7 +30,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Tabla de usuarios</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabla de encuestas</h6>
     </div>
 
     <div class="card-body">
@@ -49,7 +49,7 @@
                         <td>{{$item->id}}</td>
                         <td>{{ $item->titulo }}</td>
                         <td>{{ $item->descripcion }}</td>
-                        <td>{{$item->tipo_encuesta_id}}</td>
+                        <td>{{$item->tipo_encuesta->nombre}}</td>
                         {{-- <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)

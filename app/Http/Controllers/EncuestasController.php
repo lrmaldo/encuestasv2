@@ -79,7 +79,12 @@ class EncuestasController extends Controller
      */
     public function edit($id)
     {
-        //
+       $encuesta = encuesta::find($id);
+       $tipos_encuestas = Tipo_encuesta::all();
+       return view('encuestas.edit',compact('encuesta','tipos_encuestas'));
+       
+
+        
     }
 
     /**

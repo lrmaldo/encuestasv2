@@ -9,7 +9,13 @@ class Tipo_encuesta extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'nombre',
 
     ];
+
+    public  function encuesta(){
+        return $this->hasMany(encuesta::class);
+        
+    }
 }
