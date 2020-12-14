@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\encuesta;
 use Illuminate\Http\Request;
-
+use App\Models\Tipo_encuesta;
+use App\Models\Tipo_pregunta;
 class EncuestasController extends Controller
 {
     /**
@@ -25,7 +26,8 @@ class EncuestasController extends Controller
      */
     public function create()
     {
-       return view('encuestas.create');
+        $tipos_encuestas = Tipo_encuesta::all();
+       return view('encuestas.create',compact('tipos_encuestas'));
     }
 
     /**
@@ -39,15 +41,15 @@ class EncuestasController extends Controller
         $this->validate($request, [
             'titulo' => 'required',
             'descripcion' => 'required',
-           
+            'tipo_encuesta_id'=>'required',
         ]);
-    
+
         $input = $request->all();
-       
-    
+
+
         $user = encuesta::create($input);
-       
-    
+
+
         return redirect()->route('encuestas.index')
                         ->with('success','Encuesta creado correctamente');
     }
@@ -60,7 +62,11 @@ class EncuestasController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $encuesta = encuesta::find($id);
+        $tipos_preguntas = Tipo_pregunta::all();
+        return view('encuestas.show',compact('encuesta','tipos_preguntas'));
+
     }
 
     /**

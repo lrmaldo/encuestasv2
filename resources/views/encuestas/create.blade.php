@@ -41,7 +41,7 @@
     @endif
 
     {!! Form::open(['route' => 'encuestas.store', 'method' => 'POST']) !!}
-   {{--  @csrf  --}}   
+   {{--  @csrf  --}}
     <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
             <strong>Título:</strong>
@@ -56,10 +56,21 @@
         </div>
 
     </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="form-group">
+            <strong>Tipo de encuesta</strong> <br>
+            @foreach ($tipos_encuestas as $item)
+            {!! Form::radio('tipo_encuesta_id',$item->id,false)!!}
+            {!!  Form::label('tipo_encuesta_id', $item->nombre, null) !!} <br>
+
+            @endforeach
+        </div>
+
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 ">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
-    
+
     {!! Form::close() !!}
         </div>
       </div>

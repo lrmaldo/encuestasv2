@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class encuesta extends Model
+class Tipo_pregunta extends Model
 {
     use HasFactory;
+    protected $table = 'tipos_preguntas';
+
     protected $fillable = [
-        'titulo',
-        'descripcion',
-        'tipo_encuesta_id'
+        'nombre',
     ];
 }

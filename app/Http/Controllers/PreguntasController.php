@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pregunta;
 
 class PreguntasController extends Controller
 {
@@ -34,7 +35,12 @@ class PreguntasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+
+        Pregunta::create($input);
+        return redirect()->route('encuestas.show',$request->encuesta_id)
+                        ->with('success','Pregunta creada correctamente');
+
     }
 
     /**
