@@ -10,12 +10,17 @@
 
 ## Información del proyecto
 
-# Requerimiento 
+# Requerimiento y tecnologias 
 
 - PHP version 7.0 >
 - Apache 2.0
 - MySQL 5.7.28
 - Laravel Framework 8
+- Bootstrap v4.0
+- Html5, css y js
+- Datatables.js
+- Livewire laravel 
+
 
 
 ## Diseño de la base de datos 
@@ -29,8 +34,23 @@
 
 ## modulo de administracion de roles de usuario 
 
+# controladores
 - RoleController.php
 - UserController.php
+- EncuestaController.php
+- PreguntasController.php
+- RespuestasController.php
+
+
+ # Modelos
+  - encuesta
+  - pregunta
+  - respuesta
+  - tipo_encuesta
+  - tipo_pregunta
+  - user
+
+
 
 
 

@@ -11,7 +11,7 @@
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('encuestas.index') }}">Encuestas</a></li>
-               {{--  <li class="breadcrumb-item"><a href="{{ route('encuestas.show',$pregunta->id)}}">Preguntas</a></li> --}}
+                <li class="breadcrumb-item"><a href="{{ route('encuestas.show',$pregunta->encuesta_id)}}">Preguntas</a></li>
                 <li class="breadcrumb-item active">pregunta id: {{$pregunta->id}}</li>
             </ol>
 
@@ -41,19 +41,20 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <th>No</th>
+
                     <th>Texto</th>
 
-                    
+
                     <th width="280px">Accion</th>
                 </thead>
                 <tbody>
+
                     @foreach ($respuestas as $key => $item)
                     <tr>
-                        <td>{{$item->id}}</td>
+
                         <td>{{ $item->texto }}</td>
 
-                       
+
                         {{-- <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)

@@ -61,7 +61,13 @@
                             @endif
                         </td> --}}
                         <td>
+                            @if ($item->tipo_pregunta_id ==1)
+
+                            @else
                             <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a>
+
+                            @endif
+
                             <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a>
                             {!! Form::open(['method' => 'DELETE', 'route' => ['preguntas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
