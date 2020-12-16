@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PreguntasController;
+use App\Http\Controllers\RespuestasController;
+
 //use App\Http\Livewire\Encuestas;
 
 
@@ -33,6 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('preguntas', PreguntasController::class);
     Route::resource('encuestas',EncuestasController::class);
+    Route::resource('respuestas',RespuestasController::class);
 });
 
 Route::get('example', function () {

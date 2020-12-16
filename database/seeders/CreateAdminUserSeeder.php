@@ -52,10 +52,10 @@ class CreateAdminUserSeeder extends Seeder
         $tipo_pregunta->save();
 
         $tipo_pregunta = new Tipo_pregunta();
-        $tipo_pregunta->nombre ='Opción';
+        $tipo_pregunta->nombre ='Opción Múltiple';
         $tipo_pregunta->save();
         $tipo_pregunta = new Tipo_pregunta();
-        $tipo_pregunta->nombre ='Opción Múltiple';
+        $tipo_pregunta->nombre ='Casillas';
         $tipo_pregunta->save();
 
     }

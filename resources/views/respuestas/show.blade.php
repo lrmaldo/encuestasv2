@@ -6,16 +6,20 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2 class="h3 mb-2 text-gray-800">Gestión de Encuestas</h2>
+        <h2 class="h3 mb-2 text-gray-800">Pregunta : {{$pregunta->titulo}}</h2>
 
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Encuestas</li>
+                <li class="breadcrumb-item"><a href="{{ route('encuestas.index') }}">Encuestas</a></li>
+               {{--  <li class="breadcrumb-item"><a href="{{ route('encuestas.show',$pregunta->id)}}">Preguntas</a></li> --}}
+                <li class="breadcrumb-item active">pregunta id: {{$pregunta->id}}</li>
             </ol>
 
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('encuestas.create') }}"> Crear nueva encuesta</a>
+            <a class="btn btn-success text-white" data-toggle="modal" data-target="#ModalCreate"> Crear nueva respuesta</a>
+            {{-- <a  class="btn btn-primary text-white"> <i class="fas fa-cube  text-white"></i> Crear Producto</a> --}}
+            @include('respuestas.modal.create')
         </div>
     </div>
 </div>
@@ -30,7 +34,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Tabla de encuestas</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Tabla de Respuestas</h6>
     </div>
 
     <div class="card-body">
@@ -38,18 +42,18 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <th>No</th>
-                    <th>Titulo</th>
-                   
-                    <th>Tipo de encuesta</th>
+                    <th>Texto</th>
+
+                    
                     <th width="280px">Accion</th>
                 </thead>
                 <tbody>
-                    @foreach ($data as $key => $item)
+                    @foreach ($respuestas as $key => $item)
                     <tr>
                         <td>{{$item->id}}</td>
-                        <td>{{ $item->titulo }}</td>
-                        <td>{{ $item->descripcion }}</td>
-                        <td>{{$item->tipo_encuesta->nombre}}</td>
+                        <td>{{ $item->texto }}</td>
+
+                       
                         {{-- <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)
@@ -58,9 +62,9 @@
                             @endif
                         </td> --}}
                         <td>
-                            <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}">Preguntas</a>
-                            <a class="btn btn-primary" href="{{ route('encuestas.edit', $item->id) }}">Editar</a>
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['encuestas.destroy', $item->id], 'style' =>
+                            {{-- <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a> --}}
+                            <a class="btn btn-primary" href="{{ route('respuestas.edit', $item->id) }}">Editar</a>
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['respuestas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
@@ -74,7 +78,6 @@
 
         </div>
     </div>
-
 
 </div>
 

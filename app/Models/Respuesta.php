@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_pregunta extends Model
+class Respuesta extends Model
 {
     use HasFactory;
-    protected $table = 'tipos_preguntas';
-
     protected $fillable = [
-        'nombre',
+        'texto',
+        'pregunta_id',
+        'encuesta_id',
+       
     ];
-    public function pregunta(){
-        return $this->hasMany(Pregunta::class);
-    }
 }

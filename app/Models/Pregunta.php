@@ -13,4 +13,9 @@ class Pregunta extends Model
         'encuesta_id',
         'tipo_pregunta_id'
     ];
+
+    public function tipo_pregunta(){
+        return $this->belongsTo(Tipo_pregunta::class,'tipo_pregunta_id');
+        
+    }
 }

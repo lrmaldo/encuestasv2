@@ -52,7 +52,7 @@
                         <td>{{$item->id}}</td>
                         <td>{{ $item->titulo }}</td>
 
-                        <td>{{$item->tipo_pregunta_id}}</td>
+                        <td>{{$item->tipo_pregunta->nombre}}</td>
                         {{-- <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)
@@ -61,9 +61,9 @@
                             @endif
                         </td> --}}
                         <td>
-                            <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}">Respuestas</a>
-                            <a class="btn btn-primary" href="{{ route('encuestas.edit', $item->id) }}">Editar</a>
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['encuestas.destroy', $item->id], 'style' =>
+                            <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a>
+                            <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a>
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['preguntas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
