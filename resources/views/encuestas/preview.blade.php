@@ -20,12 +20,15 @@
 </head>
 <body>
  <div class="container">
-    <div class="row justify-content-between">
-        <div class="col-2">
-          One of two columns
+    <div class="row justify-content-between  py-4">
+        <div class="col-3 mt-1">
+         <img src="{{asset('/img/Logo_TECNM-1024x438.png')}}" width="250px" alt="" class="img-responsive">
         </div>
-        <div class="col-2">
-          One of two columns
+        <div class="col-3 mt-1 text-center">
+            
+        </div>
+        <div class="col-3 mt-1">
+            <img src="{{asset('/img/logo_tec_tux.png')}}" width="100px" alt="" class="img-responsive ">
         </div>
       </div>
     <div class="py-5 text-center">

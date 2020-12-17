@@ -76,14 +76,7 @@ class PreguntasController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-        $input = $request->all();
-        $pregunta = Pregunta::find($id);
-        $pregunta->update($input);
-        return redirect()->route('encuestas.show',$request->encuesta_id)
-                        ->with('success','Pregunta actualizada correctamente');
 
-=======
         $this->validate($request, [
             'titulo' => 'required',
             'tipo_pregunta_id' => 'required',
@@ -94,7 +87,7 @@ class PreguntasController extends Controller
         $pregunta->update($input);
         return redirect()->route('encuestas.show',$pregunta->encuesta_id)
             ->with('success','Pregunta actualizada');
->>>>>>> origin/master
+
     }
 
     /**

@@ -87,6 +87,12 @@ class RespuestasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $respuesta = Respuesta::find($id);
+        $pregunta_id = $respuesta->pregunta_id;
+        $respuesta->delete();
+        
+        return redirect()->route('respuestas.show',$pregunta_id)
+                        ->with('success','Respuesta eliminada correctamente');
     }
 }

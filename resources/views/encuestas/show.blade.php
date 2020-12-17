@@ -18,6 +18,7 @@
         <div class="pull-right">
             <a class="btn btn-success text-white" data-toggle="modal" data-target="#ModalCreate"> Crear nueva pregunta</a>
             {{-- <a  class="btn btn-primary text-white"> <i class="fas fa-cube  text-white"></i> Crear Producto</a> --}}
+            <a href="{{url('encuesta_preview/'.$encuesta->id)}}" class="btn btn-info text-white"   target="_blank" rel="noopener noreferrer">Ver encuesta</a>
             @include('preguntas.modal.create')
         </div>
     </div>
@@ -64,7 +65,7 @@
                             @endif
                         </td> --}}
                         <td>
-<<<<<<< HEAD
+
                             @if ($item->tipo_pregunta_id==1)
                                 
                             @else
@@ -74,16 +75,7 @@
                             <a data-toggle="modal" data-target="#ModalEdit-{{$item->id}}"  class="btn btn-primary text-white">Editar</a>
                             @include('preguntas.modal.edit')
                             {{-- <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a> --}}
-=======
-                            @if ($item->tipo_pregunta_id ==1)
 
-                            @else
-                            <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a>
-
-                            @endif
-
-                            <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a>
->>>>>>> origin/master
                             {!! Form::open(['method' => 'DELETE', 'route' => ['preguntas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
