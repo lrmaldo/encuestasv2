@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pregunta;
-
+use  \App\Models\Tipo_pregunta;
 class PreguntasController extends Controller
 {
     /**
@@ -62,7 +62,9 @@ class PreguntasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pregunta = Pregunta::find($id);
+        $tipos_preguntas = Tipo_pregunta::all();
+        return view('preguntas.edit',compact('pregunta','tipos_preguntas'));
     }
 
     /**
@@ -74,12 +76,25 @@ class PreguntasController extends Controller
      */
     public function update(Request $request, $id)
     {
+<<<<<<< HEAD
         $input = $request->all();
         $pregunta = Pregunta::find($id);
         $pregunta->update($input);
         return redirect()->route('encuestas.show',$request->encuesta_id)
                         ->with('success','Pregunta actualizada correctamente');
 
+=======
+        $this->validate($request, [
+            'titulo' => 'required',
+            'tipo_pregunta_id' => 'required',
+
+        ]);
+        $input = $request->all();
+        $pregunta = Pregunta::find($id);
+        $pregunta->update($input);
+        return redirect()->route('encuestas.show',$pregunta->encuesta_id)
+            ->with('success','Pregunta actualizada');
+>>>>>>> origin/master
     }
 
     /**

@@ -1,0 +1,75 @@
+@extends('layouts.app')
+
+
+@section('content')
+
+<div class="row">
+    <div class="col-lg-12 margin-tb">
+        <div class="pull-left">
+            <h2 class="h3 mb-2 text-gray-800">Editar pregunta</h2>
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('encuestas.index') }}">Encuestas</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('encuestas.show',$pregunta->encuesta_id) }}">Preguntas</a></li>
+                <li class="breadcrumb-item active">Editar pregunta</li>
+            </ol>
+
+        </div>
+        <div class="pull-right">
+            <a class="btn btn-info" href="{{ route('encuestas.show',$pregunta->encuesta_id) }}"> Regresar</a>
+        </div>
+    </div>
+</div>
+
+<div class="">
+    <div class="card shadow mb-2">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">
+              Encuesta
+          </h6>
+        </div>
+        <div class="card-body">
+            @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <strong>Error!</strong> Los siguientes campos son requeridos.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {!! Form::model($pregunta,['route' => ['preguntas.update',$pregunta->id], 'method' => 'PATCH']) !!}
+    {{-- {!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!} --}}
+   {{--  @csrf  --}}
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="form-group">
+            <strong>Título:</strong>
+            {!! Form::text('titulo', null, ['placeholder' => 'Título', 'class' => 'form-control']) !!}
+
+        </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="form-group">
+            <strong>Tipo de pregunta</strong> <br>
+            @foreach ($tipos_preguntas as $item)
+            {!! Form::radio('tipo_pregunta_id',$item->id,$pregunta->tipo_pregunta ==$item ? true:false)!!}
+            {!!  Form::label('tipo_pregunta_id', $item->nombre, null) !!} <br>
+
+            @endforeach
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 ">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+
+    {!! Form::close() !!}
+        </div>
+      </div>
+</div>
+
+@endsection

@@ -39,7 +39,7 @@
                 <thead>
                     <th>No</th>
                     <th>Titulo</th>
-                   
+
                     <th>Tipo de encuesta</th>
                     <th width="280px">Accion</th>
                 </thead>
@@ -58,7 +58,7 @@
                             @endif
                         </td> --}}
                         <td>
-                            <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}">Preguntas</a>
+                            <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}" >Preguntas</a>
                             <a class="btn btn-primary" href="{{ route('encuestas.edit', $item->id) }}">Editar</a>
                             {!! Form::open(['method' => 'DELETE', 'route' => ['encuestas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}

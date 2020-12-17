@@ -64,6 +64,7 @@
                             @endif
                         </td> --}}
                         <td>
+<<<<<<< HEAD
                             @if ($item->tipo_pregunta_id==1)
                                 
                             @else
@@ -73,6 +74,16 @@
                             <a data-toggle="modal" data-target="#ModalEdit-{{$item->id}}"  class="btn btn-primary text-white">Editar</a>
                             @include('preguntas.modal.edit')
                             {{-- <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a> --}}
+=======
+                            @if ($item->tipo_pregunta_id ==1)
+
+                            @else
+                            <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a>
+
+                            @endif
+
+                            <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a>
+>>>>>>> origin/master
                             {!! Form::open(['method' => 'DELETE', 'route' => ['preguntas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
