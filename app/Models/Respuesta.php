@@ -9,6 +9,7 @@ class Respuesta extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'texto',
         'pregunta_id',
         'encuesta_id',

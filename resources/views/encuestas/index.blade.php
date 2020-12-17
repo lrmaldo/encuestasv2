@@ -60,10 +60,8 @@
                         <td>
                             <a class="btn btn-info" href="{{ route('encuestas.show', $item->id) }}">Preguntas</a>
                             <a class="btn btn-primary" href="{{ route('encuestas.edit', $item->id) }}">Editar</a>
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['encuestas.destroy', $item->id], 'style' =>
-                            'display:inline']) !!}
-                            {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
-                            {!! Form::close() !!}
+                            <a data-toggle="modal" data-target="#modal_eliminar{{$item->id}}" class="btn btn-danger text-white">Eliminar</a>
+                            @include('encuestas.modal.delete')
                         </td>
                     </tr>
                 @endforeach

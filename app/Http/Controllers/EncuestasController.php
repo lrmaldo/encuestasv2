@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Encuestas;
 use App\Models\encuesta;
 use Illuminate\Http\Request;
 use App\Models\Tipo_encuesta;
 use App\Models\Tipo_pregunta;
 use App\Models\Pregunta;
+use App\Models\Respuesta;
+
 class EncuestasController extends Controller
 {
     /**
@@ -96,7 +99,17 @@ class EncuestasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'titulo' => 'required',
+            'descripcion' => 'required',
+            'tipo_encuesta_id'=>'required',
+        ]);
+        $input = $request->all();
+        $encuesta = encuesta::find($id);
+        $encuesta->update($input);
+        return redirect()->route('encuestas.index')
+        ->with('success','Encuesta actualizada correctamente');
+
     }
 
     /**
@@ -107,6 +120,22 @@ class EncuestasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        encuesta::destroy($id);
+        return redirect()->route('encuestas.index')
+        ->with('success','Encuesta Eliminada correctamente correctamente');
+    }
+
+
+    /* preview */
+
+
+    public  function preview($id){
+
+        $encuesta = encuesta::find($id);
+        $preguntas = Pregunta::where('encuesta_id','=',$id)->get();
+        $respuestas = Respuesta::where('encuesta_id','=',$id)->get();
+
+        return view('encuestas.preview',compact('encuesta','preguntas','respuestas'));
+        
     }
 }

@@ -47,9 +47,12 @@
                     <th width="280px">Accion</th>
                 </thead>
                 <tbody>
+                    @php
+                        $i = 1;
+                    @endphp
                     @foreach ($preguntas as $key => $item)
                     <tr>
-                        <td>{{$item->id}}</td>
+                        <td>{{$i++}}</td>
                         <td>{{ $item->titulo }}</td>
 
                         <td>{{$item->tipo_pregunta->nombre}}</td>
@@ -61,8 +64,15 @@
                             @endif
                         </td> --}}
                         <td>
+                            @if ($item->tipo_pregunta_id==1)
+                                
+                            @else
+                            
                             <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a>
-                            <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a>
+                            @endif
+                            <a data-toggle="modal" data-target="#ModalEdit-{{$item->id}}"  class="btn btn-primary text-white">Editar</a>
+                            @include('preguntas.modal.edit')
+                            {{-- <a class="btn btn-primary" href="{{ route('preguntas.edit', $item->id) }}">Editar</a> --}}
                             {!! Form::open(['method' => 'DELETE', 'route' => ['preguntas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
