@@ -41,8 +41,8 @@
             $conta_pregunta=1;
         @endphp
         @foreach ($preguntas as $pregunta)
-        <div class="col-md-8 ">
-            <div class=" mb-3">
+        <div class="col-md-12 ">
+            <div class=" mb-4">
                 <label for="firstName"><strong>{{$conta_pregunta++}}. {{$pregunta->titulo}}</strong></label>
                
               
@@ -82,7 +82,7 @@
                @endswitch
 
                 <div class="invalid-feedback">
-                  Valid first name is required.
+                  Se requiere este campo.
                 </div>
               </div>
           </div>

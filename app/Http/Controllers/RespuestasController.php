@@ -76,7 +76,13 @@ class RespuestasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $respuesta = Respuesta::find($id);
+        $input = $request->all();
+        $pregunta_id = $respuesta->pregunta_id;
+        $respuesta->update($input);
+        
+        return redirect()->route('respuestas.show',$pregunta_id)
+                        ->with('success','Respuesta actualizado correctamente');
     }
 
     /**

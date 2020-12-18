@@ -38,6 +38,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('respuestas',RespuestasController::class);
 
     Route::GET('encuesta_preview/{id}',[EncuestasController::class,'preview']);
+
+    Route::POST('encuesta_tipo',[ EncuestasController::class,'encuesta_tipo']);
 });
 
 Route::get('example', function () {

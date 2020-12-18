@@ -138,4 +138,12 @@ class EncuestasController extends Controller
         return view('encuestas.preview',compact('encuesta','preguntas','respuestas'));
         
     }
+
+
+    /* tipo encuesta */
+
+    public function encuesta_tipo(Request $request){
+
+        return $request->all();
+    }
 }
