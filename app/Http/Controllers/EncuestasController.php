@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Encuestas;
+use App\Models\Datos_generales;
 use App\Models\encuesta;
 use Illuminate\Http\Request;
 use App\Models\Tipo_encuesta;
 use App\Models\Tipo_pregunta;
 use App\Models\Pregunta;
 use App\Models\Respuesta;
+use Illuminate\Support\Facades\Auth;
 
 class EncuestasController extends Controller
 {
@@ -20,7 +22,7 @@ class EncuestasController extends Controller
     public function index()
     {
         $data = encuesta::all();
-        return view('encuestas.index',compact('data'));
+        return view('encuestas.index', compact('data'));
     }
 
     /**
@@ -31,7 +33,7 @@ class EncuestasController extends Controller
     public function create()
     {
         $tipos_encuestas = Tipo_encuesta::all();
-       return view('encuestas.create',compact('tipos_encuestas'));
+        return view('encuestas.create', compact('tipos_encuestas'));
     }
 
     /**
@@ -45,7 +47,7 @@ class EncuestasController extends Controller
         $this->validate($request, [
             'titulo' => 'required',
             'descripcion' => 'required',
-            'tipo_encuesta_id'=>'required',
+            'tipo_encuesta_id' => 'required',
         ]);
 
         $input = $request->all();
@@ -55,7 +57,7 @@ class EncuestasController extends Controller
 
 
         return redirect()->route('encuestas.index')
-                        ->with('success','Encuesta creado correctamente');
+            ->with('success', 'Encuesta creado correctamente');
     }
 
     /**
@@ -69,9 +71,8 @@ class EncuestasController extends Controller
 
         $encuesta = encuesta::find($id);
         $tipos_preguntas = Tipo_pregunta::all();
-        $preguntas = Pregunta::where('encuesta_id','=',$id)->get();
-        return view('encuestas.show',compact('encuesta','tipos_preguntas','preguntas'));
-
+        $preguntas = Pregunta::where('encuesta_id', '=', $id)->get();
+        return view('encuestas.show', compact('encuesta', 'tipos_preguntas', 'preguntas'));
     }
 
     /**
@@ -82,12 +83,9 @@ class EncuestasController extends Controller
      */
     public function edit($id)
     {
-       $encuesta = encuesta::find($id);
-       $tipos_encuestas = Tipo_encuesta::all();
-       return view('encuestas.edit',compact('encuesta','tipos_encuestas'));
-       
-
-        
+        $encuesta = encuesta::find($id);
+        $tipos_encuestas = Tipo_encuesta::all();
+        return view('encuestas.edit', compact('encuesta', 'tipos_encuestas'));
     }
 
     /**
@@ -102,14 +100,13 @@ class EncuestasController extends Controller
         $this->validate($request, [
             'titulo' => 'required',
             'descripcion' => 'required',
-            'tipo_encuesta_id'=>'required',
+            'tipo_encuesta_id' => 'required',
         ]);
         $input = $request->all();
         $encuesta = encuesta::find($id);
         $encuesta->update($input);
         return redirect()->route('encuestas.index')
-        ->with('success','Encuesta actualizada correctamente');
-
+            ->with('success', 'Encuesta actualizada correctamente');
     }
 
     /**
@@ -122,28 +119,41 @@ class EncuestasController extends Controller
     {
         encuesta::destroy($id);
         return redirect()->route('encuestas.index')
-        ->with('success','Encuesta Eliminada correctamente correctamente');
+            ->with('success', 'Encuesta Eliminada correctamente correctamente');
     }
 
 
     /* preview */
 
 
-    public  function preview($id){
+    public  function preview($id)
+    {
 
         $encuesta = encuesta::find($id);
-        $preguntas = Pregunta::where('encuesta_id','=',$id)->get();
-        $respuestas = Respuesta::where('encuesta_id','=',$id)->get();
+        $preguntas = Pregunta::where('encuesta_id', '=', $id)->get();
+        $respuestas = Respuesta::where('encuesta_id', '=', $id)->get();
 
-        return view('encuestas.preview',compact('encuesta','preguntas','respuestas'));
-        
+        return view('encuestas.preview', compact('encuesta', 'preguntas', 'respuestas'));
     }
 
 
     /* tipo encuesta */
 
-    public function encuesta_tipo(Request $request){
+    public function encuesta_tipo(Request $request)
+    {
 
-        return $request->all();
+        $id_user = Auth::user()->id;
+        $buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->get();
+
+        if (is_null($buscar_datos)) {
+            return 'encuesta';
+        } else {
+            return redirect('datos');
+            //return 'formula de datos';
+            //$request->all();
+        }
+    }
+    public function datos_generales(){
+        return view('datos_generales.index');
     }
 }
