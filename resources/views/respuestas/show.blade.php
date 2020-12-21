@@ -66,7 +66,10 @@
                         </td> --}}
                         <td>
                             {{-- <a class="btn btn-info" href="{{ route('respuestas.show', $item->id) }}">Respuestas</a> --}}
-                            <a class="btn btn-primary" href="{{ route('respuestas.edit', $item->id) }}">Editar</a>
+                            {{-- <a class="btn btn-primary" href="{{ route('respuestas.edit', $item->id) }}">Editar</a> --}}
+                            <a data-toggle="modal" data-target="#ModalEdit-{{$item->id}}"  class="btn btn-primary text-white">Editar</a>
+                            @include('respuestas.modal.edit')
+
                             {!! Form::open(['method' => 'DELETE', 'route' => ['respuestas.destroy', $item->id], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}

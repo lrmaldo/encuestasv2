@@ -76,6 +76,7 @@ class PreguntasController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $this->validate($request, [
             'titulo' => 'required',
             'tipo_pregunta_id' => 'required',
@@ -86,6 +87,7 @@ class PreguntasController extends Controller
         $pregunta->update($input);
         return redirect()->route('encuestas.show',$pregunta->encuesta_id)
             ->with('success','Pregunta actualizada');
+
     }
 
     /**
@@ -96,6 +98,11 @@ class PreguntasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pregunta = Pregunta::find($id);
+       $encuesta_id = $pregunta->encuesta_id;
+       /* eliminar pregunta */
+       $pregunta->delete();
+       return redirect()->route('encuestas.show',$encuesta_id)
+       ->with('success','Pregunta eliminada correctamente');
     }
 }
