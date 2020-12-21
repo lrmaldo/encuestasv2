@@ -49,10 +49,14 @@
   - tipo_encuesta
   - tipo_pregunta
   - user
+  - Datos_generales
+  - 
 
 
 
+## Notas
 
+ Poner solo una encuesta activa, es decir si una encuesta de tipo egresado esta activa las de más encuestas del mismo tipo debe  no activas  lo mismo si editas otra encuesta del mismo tipo 
 
 
 ## About Laravel

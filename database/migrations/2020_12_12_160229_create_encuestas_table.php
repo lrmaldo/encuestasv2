@@ -17,6 +17,7 @@ class CreateEncuestasTable extends Migration
             $table->increments('id');
             $table->string('titulo')->nullable();
             $table->string('descripcion')->nullable();
+            $table->tinyInteger('status')->default(0)->nullable()->description('activo o no activo');
             $table->integer('tipo_encuesta_id')->unsigned();
             $table->timestamps();
         });

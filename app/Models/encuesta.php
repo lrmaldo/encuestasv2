@@ -12,7 +12,8 @@ class encuesta extends Model
         'id',
         'titulo',
         'descripcion',
-        'tipo_encuesta_id'
+        'tipo_encuesta_id',
+        'status',
     ];
 
     public function tipo_encuesta(){
