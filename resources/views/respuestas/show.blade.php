@@ -41,17 +41,19 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-
+                    <th>N°</th>
                     <th>Texto</th>
 
 
                     <th width="280px">Accion</th>
                 </thead>
                 <tbody>
-
+                    @php
+                        $i=1;
+                    @endphp
                     @foreach ($respuestas as $key => $item)
                     <tr>
-
+                        <td>{{$i++}}</td>
                         <td>{{ $item->texto }}</td>
 
 
