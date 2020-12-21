@@ -14,12 +14,12 @@ class CreateDatosGeneralesTable extends Migration
     public function up()
     {
         Schema::create('datos_generales', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('genero')->nullable();
             $table->integer('edad')->nullable();
             $table->text('domicilio')->nullable();
             $table->string('ciudad')->nullable();
-            $table->string('CP')->nullable();
+            $table->string('cp')->nullable();
             $table->string('telefono')->nullable();
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');

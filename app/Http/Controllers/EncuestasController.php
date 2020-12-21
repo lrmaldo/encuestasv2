@@ -143,17 +143,36 @@ class EncuestasController extends Controller
     {
 
         $id_user = Auth::user()->id;
-        $buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->get();
+        $buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->first();
+        $tipo_encuesta_id = $request->tipo_encuesta_id;
+        if (!is_null($buscar_datos)) {
 
-        if (is_null($buscar_datos)) {
-            return 'encuesta';
+            //return 'encuesta';
+            return redirect('encuesta_preview/1');
+
         } else {
-            return redirect('datos');
+
+           return view('datos_generales.index',compact('tipo_encuesta_id'));
             //return 'formula de datos';
             //$request->all();
         }
     }
     public function datos_generales(){
         return view('datos_generales.index');
+    }
+
+    public function datos_store(Request $request){
+
+
+        $datos = new Datos_generales();
+        $datos->genero = $request->genero;
+        $datos->edad = $request->edad;
+        $datos->domicilio = $request->domicilio;
+        $datos->ciudad =
+        $datos->cp = $request->cp;
+        $datos->telefono = $request->telefono;
+        $datos->usuario_id = Auth::user()->id;
+        $datos->save();
+        return 'datos guardados';
     }
 }

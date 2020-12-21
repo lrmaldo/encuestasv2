@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Datos_generales extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'genero',
+        'edad',
+        'domicilio',
+        'ciudad',
+         'cp',
+         'telefono',
+         'usuario_id',
+    ];
 }
