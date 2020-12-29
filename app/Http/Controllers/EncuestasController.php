@@ -50,10 +50,19 @@ class EncuestasController extends Controller
             'tipo_encuesta_id' => 'required',
         ]);
 
+        $status = $request->status;
         $input = $request->all();
+        if(!empty($status)){
+            encuesta::where('tipo_encuesta_id',$request->tipo_encuesta_id)
+            ->update(['status'=>0]);
+
+            encuesta::create($input);
+        }else{
+            $encuesta = encuesta::create($input);
+
+        }
 
 
-        $user = encuesta::create($input);
 
 
         return redirect()->route('encuestas.index')
@@ -102,9 +111,22 @@ class EncuestasController extends Controller
             'descripcion' => 'required',
             'tipo_encuesta_id' => 'required',
         ]);
+        $status = $request->status;
         $input = $request->all();
-        $encuesta = encuesta::find($id);
-        $encuesta->update($input);
+        if(!empty($status)){
+            encuesta::where('tipo_encuesta_id',$request->tipo_encuesta_id)
+            ->update(['status'=>0]);
+
+            $encuesta = encuesta::find($id);
+             $encuesta->update($input);
+            }else{
+                $encuesta = encuesta::find($id);
+                $encuesta->update($input);
+                $encuesta->update(['status'=>0]);
+
+        }
+
+
         return redirect()->route('encuestas.index')
             ->with('success', 'Encuesta actualizada correctamente');
     }

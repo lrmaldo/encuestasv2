@@ -41,6 +41,7 @@
                     <th>Titulo</th>
                     <th>Descripcion</th>
                     <th>Tipo de encuesta</th>
+                    <th width='100px'>Estatus</th>
                     <th width="280px">Accion</th>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@
                         <td>{{ $item->titulo }}</td>
                         <td>{{ $item->descripcion }}</td>
                         <td>{{$item->tipo_encuesta->nombre}}</td>
+                        <td>{{$item->status ==1 ? 'Activo': 'Desactivado'}}</td>
                         {{-- <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)
