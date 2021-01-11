@@ -58,6 +58,8 @@
 
  Poner solo una encuesta activa, es decir si una encuesta de tipo egresado esta activa las de más encuestas del mismo tipo debe ser no activas  lo mismo si editas otra encuesta del mismo tipo 
 
+ - Poner el modulo de usuario encuesta  tiene que hacer una condicion donde busque si el usuario  respondio la encuesta o no, si no muestra  un mensaje que ya respondio la encuesta 
+
 
 ## About Laravel
 

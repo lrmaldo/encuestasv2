@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST('encuesta_tipo',[ EncuestasController::class,'encuesta_tipo']);
     Route::GET('datos',[EncuestasController::class,'datos_generales']);
     Route::POST('datos_store',[EncuestasController::class,'datos_store']);
+    Route::GET('encuesta/{id_usuario}/{id_encuesta}',[EncuestasController::class,'encuesta_usuario'])->name('encuesta');
 });
 
 Route::get('example', function () {

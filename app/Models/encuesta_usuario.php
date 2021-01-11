@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class encuesta_usuario extends Model
 {
     use HasFactory;
+    protected $primarykey = 'id';
+
+    public function usuario(){
+        return $this->belongsTo(User::class,'id','usuario_id');
+    }
 }

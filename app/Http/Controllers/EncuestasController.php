@@ -10,6 +10,7 @@ use App\Models\Tipo_encuesta;
 use App\Models\Tipo_pregunta;
 use App\Models\Pregunta;
 use App\Models\Respuesta;
+use App\Models\encuesta_usuario;
 use Illuminate\Support\Facades\Auth;
 
 class EncuestasController extends Controller
@@ -170,7 +171,16 @@ class EncuestasController extends Controller
         if (!is_null($buscar_datos)) {
 
             //return 'encuesta';
-            return redirect('encuesta_preview/1');
+            //return redirect('encuesta_preview/1');
+            /* buscar si el usuario ya contesto la encuesta */
+                $encuesta_usuario = encuesta_usuario::where('usuario_id','=',Auth::user()->id)
+                ->get();
+                if(empty($encuesta_usuario)){
+                return 'ya ha contestado la encuesta';
+
+                }else{
+                return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$tipo_encuesta_id ]);
+                }
 
         } else {
 
@@ -185,16 +195,35 @@ class EncuestasController extends Controller
 
     public function datos_store(Request $request){
 
+        $id_user = Auth::user()->id;
 
         $datos = new Datos_generales();
         $datos->genero = $request->genero;
         $datos->edad = $request->edad;
         $datos->domicilio = $request->domicilio;
-        $datos->ciudad =
+        $datos->ciudad = $request->ciudad;
         $datos->cp = $request->cp;
         $datos->telefono = $request->telefono;
         $datos->usuario_id = Auth::user()->id;
         $datos->save();
-        return 'datos guardados';
+        /* buscar si el usuario ya contesto la encuesta */
+        $encuesta_usuario = encuesta_usuario::where('usuario_id','=',Auth::user()->id)
+                            ->get();
+        if(empty($encuesta_usuario)){
+            return 'ya ha contestado la encuesta';
+
+        }else{
+
+            /*  poner una encuesta  hacer un if para buscar que encuesta del tipo esta activo sino mandar mensaje que no hay encuesta  disponible */
+
+            return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
+        }
+
+
+
+
+    }
+    public function encuesta_usuario($id_usuario, $id_encuesta){
+        return $id_encuesta;
     }
 }
