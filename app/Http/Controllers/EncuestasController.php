@@ -11,6 +11,7 @@ use App\Models\Tipo_pregunta;
 use App\Models\Pregunta;
 use App\Models\Respuesta;
 use App\Models\encuesta_usuario;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class EncuestasController extends Controller
@@ -183,8 +184,8 @@ class EncuestasController extends Controller
                     /*  poner una encuesta  hacer un if para buscar que encuesta del tipo esta activo sino mandar mensaje que no hay encuesta  disponible */
                     $encuesta = encuesta::where('tipo_encuesta_id','=',$tipo_encuesta)->where('status','=',1)->first();
                     if(!empty($encuesta)){
-                        return $encuesta;
-                        //return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
+                        //return $encuesta;
+                        return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
                     }else{
                         //return $encuesta;
                         return 'encuesta no disponible';
@@ -239,6 +240,14 @@ class EncuestasController extends Controller
 
     }
     public function encuesta_usuario($id_usuario, $id_encuesta){
-        return $id_encuesta;
+        $encuesta = encuesta::find($id_encuesta);
+        $usuario = User::find($id_usuario);
+        $preguntas = Pregunta::where('encuesta_id', '=', $id_encuesta)->get();
+        return view('encuestas.usuario.vista',compact('usuario','encuesta','preguntas'));
+        //return $id_encuesta;
+    }
+
+    public function guardar_encuesta(Request $request){
+        
     }
 }
