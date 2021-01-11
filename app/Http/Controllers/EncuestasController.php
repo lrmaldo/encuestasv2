@@ -179,7 +179,16 @@ class EncuestasController extends Controller
                 return 'ya ha contestado la encuesta';
 
                 }else{
-                return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$tipo_encuesta_id ]);
+                    $tipo_encuesta = $request->tipo_encuesta_id;
+                    /*  poner una encuesta  hacer un if para buscar que encuesta del tipo esta activo sino mandar mensaje que no hay encuesta  disponible */
+                    $encuesta = encuesta::where('tipo_encuesta_id','=',$tipo_encuesta)->where('status','=',1)->first();
+                    if(!empty($encuesta)){
+                        return $encuesta;
+                        //return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
+                    }else{
+                        //return $encuesta;
+                        return 'encuesta no disponible';
+                    }
                 }
 
         } else {
@@ -213,10 +222,16 @@ class EncuestasController extends Controller
             return 'ya ha contestado la encuesta';
 
         }else{
-
+            $tipo_encuesta = $request->tipo_encuesta_id;
             /*  poner una encuesta  hacer un if para buscar que encuesta del tipo esta activo sino mandar mensaje que no hay encuesta  disponible */
+            $encuesta = encuesta::where('id',$tipo_encuesta)->where('status','=',1)->first();
+            if(!empty($encuesta)){
+                //return $encuesta;
+                return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
+            }else{
+                return 'encuesta no disponible';
+            }
 
-            return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
         }
 
 
