@@ -227,7 +227,7 @@ class EncuestasController extends Controller
             $encuesta = encuesta::where('id',$tipo_encuesta)->where('status','=',1)->first();
             if(!empty($encuesta)){
                 //return $encuesta;
-                return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
+                return redirect()->route('encuesta'  , ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
             }else{
                 return 'encuesta no disponible';
             }
