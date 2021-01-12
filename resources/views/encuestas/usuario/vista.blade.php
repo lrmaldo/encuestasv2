@@ -41,6 +41,7 @@
             $conta_pregunta=1;
         @endphp
         {{-- poner aqui la etiqueta form --}}
+        {!! Form::open(['url' => 'encuesta/post', 'method' => 'POST']) !!}
         @foreach ($preguntas as $pregunta)
         <div class="col-md-12 ">
             <div class=" mb-4">
@@ -50,7 +51,7 @@
               
                @switch($pregunta->tipo_pregunta_id)
                    @case(1)
-                   {!! Form::text('titulo', null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control']) !!}
+                   {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id, null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control']) !!}
                        @break
                    @case(2)
                     @php
@@ -59,8 +60,8 @@
                    <div class="form-group">
                         @foreach ($res_pregunta as $item)
 
-                        {!! Form::radio('pregunta_'.$pregunta->id.'_'.$encuesta->id,$item->id,false)!!}
-                        {!!  Form::label('pregunta_'.$pregunta->id.'_'.$encuesta->id, $item->texto, null) !!} <br>
+                        {!! Form::radio('respuesta_'.$encuesta->id.'_'.$pregunta->id,$item->id,false)!!}
+                        {!!  Form::label('respuesta_'.$encuesta->id .'_'.$pregunta->id, $item->texto, null) !!} <br>
 
                         @endforeach
                    </div>
@@ -72,7 +73,7 @@
                     @endphp
                         <br/>
                         @foreach($res_pregunta as $value)
-                            <label>{{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'[]', $value->id, false, array('class' => 'name')) }}
+                            <label>{{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'[]', $value->id, false, array('class' => 'name')) }}
                             {{ $value->texto }}</label>
                         <br/>
                         @endforeach
@@ -87,45 +88,18 @@
                 </div>
               </div>
           </div>
-            
+          {!! Form::text('encuesta_id', $encuesta->id, ['class' => 'form-control', ' type' => 'hidden']) !!}
         @endforeach
         <div class="col-xs-12 col-sm-12 col-md-12 text-center ">
             <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
-
+        {!! Form::close() !!}
       </div>
       
 
 
  </div>
 
-
-{{--     
-<li>
-
-    <h3>CSS Stands for...</h3>
-    
-    <div>
-        <input type="radio" name="question-1-answers" id="question-1-answers-A" value="A" />
-        <label for="question-1-answers-A">A) Computer Styled Sections </label>
-    </div>
-    
-    <div>
-        <input type="radio" name="question-1-answers" id="question-1-answers-B" value="B" />
-        <label for="question-1-answers-B">B) Cascading Style Sheets</label>
-    </div>
-    
-    <div>
-        <input type="radio" name="question-1-answers" id="question-1-answers-C" value="C" />
-        <label for="question-1-answers-C">C) Crazy Solid Shapes</label>
-    </div>
-    
-    <div>
-        <input type="radio" name="question-1-answers" id="question-1-answers-D" value="D" />
-        <label for="question-1-answers-D">D) None of the above</label>
-    </div>
-
-</li> --}}
     
 
  <!-- Bootstrap core JavaScript-->
