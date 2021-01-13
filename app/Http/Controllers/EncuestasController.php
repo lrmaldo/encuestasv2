@@ -249,10 +249,12 @@ class EncuestasController extends Controller
 
     public function guardar_encuesta(Request $request){
         $id_encuesta = $request->encuesta_id;
-        
+
         $encuesta = encuesta::find($id_encuesta);
+        $preguntas = Pregunta::where('encuesta_id',$id_encuesta)->get();
+        $respuestas =  Respuesta::where('encuesta_id', '=', $id_encuesta)->get();
         $usuario_encuesta = new encuesta_usuario();
-        
+
 
         return $request->all();
     }
