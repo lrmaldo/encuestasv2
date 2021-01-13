@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
 @livewireStyles
 </head>
 <body>
@@ -51,7 +52,7 @@
               
                @switch($pregunta->tipo_pregunta_id)
                    @case(1)
-                   {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id, null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control']) !!}
+                   {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control','required'=>'required']) !!}
                        @break
                    @case(2)
                     @php
@@ -60,24 +61,38 @@
                    <div class="form-group">
                         @foreach ($res_pregunta as $item)
 
-                        {!! Form::radio('respuesta_'.$encuesta->id.'_'.$pregunta->id,$item->id,false)!!}
-                        {!!  Form::label('respuesta_'.$encuesta->id .'_'.$pregunta->id, $item->texto, null) !!} <br>
+                        {!! Form::radio('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_2',$item->id,false,['required'=>'required'])!!}
+                        {!!  Form::label('respuesta_'.$encuesta->id .'_'.$pregunta->id.'_2', $item->texto, null) !!} <br>
 
                         @endforeach
                    </div>
                        @break
                     @case(3)
-                    <div class="form-group">
-                        @php
+                    @php
                         $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
-                    @endphp
-                        <br/>
-                        @foreach($res_pregunta as $value)
-                            <label>{{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'[]', $value->id, false, array('class' => 'name')) }}
-                            {{ $value->texto }}</label>
-                        <br/>
-                        @endforeach
-                    </div>
+                        @endphp
+                       
+                       <div class="form-group options-{{$pregunta->id}}">
+                       
+                       @foreach($res_pregunta as $value)
+                           {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, false, array('class' => 'name', 'required' =>'required')) }}
+                                {{ $value->texto }}
+                                <br/>
+                            @endforeach
+                        </div>
+                        {{-- validacion de required jquery --}}
+                        <script>
+                            $(function(){
+                                var requiredCheckboxes = $('.options-{{$pregunta->id}} :checkbox[required]');
+                                requiredCheckboxes.change(function(){
+                                    if(requiredCheckboxes.is(':checked')) {
+                                        requiredCheckboxes.removeAttr('required');
+                                    } else {
+                                        requiredCheckboxes.attr('required', 'required');
+                                    }
+                                });
+                            });
+                        </script>
                     @break
                    @default
                        
@@ -96,14 +111,17 @@
         {!! Form::close() !!}
       </div>
       
-
+<script>
+    /* para no retroceder */
+    window.history.forward();
+</script>
 
  </div>
 
     
 
  <!-- Bootstrap core JavaScript-->
- <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+ 
  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
  <!-- Core plugin JavaScript-->

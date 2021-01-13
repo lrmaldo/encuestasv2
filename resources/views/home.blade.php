@@ -5,28 +5,23 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Elige el tipo de encuesta a contestar:') }}</div>
+                @php
+                        $encuesta_usuario = App\Models\encuesta_usuario::where('usuario_id',Auth::user()->id)->orderby('created_at','DESC')->take(1)->first();
+                        if($encuesta_usuario){
+                            //$respondido = $encuesta_usuario->last();
+                            $encuesta = App\Models\encuesta::where('status','=',1)->where('id',$encuesta_usuario->encuesta_id)->count();
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    {!! Form::open(['url' => 'encuesta_tipo', 'method' => 'POST']) !!}
-                   {{--  {{ __('You are logged in!') }} --}}
-                    <br>
-                    @foreach (App\Models\Tipo_encuesta::all() as $item)
-                    {!! Form::radio('tipo_encuesta_id',$item->id,false)!!}
-                    {!!  Form::label('tipo_encuesta_id', $item->nombre, null) !!} <br>
-        
-                    @endforeach
-                    <div class="col-xs-12 col-sm-12 col-md-12 ">
-                        <button type="submit" class="btn btn-primary">Continuar</button>
-                    </div>
+                        }
+                    
+                @endphp
+                @if ($encuesta>0)
+                @include('layouts.card_tipo')
+                @else
+                @include('layouts.card_contestado')    
+                    
+                @endif
+
                 
-                    {!! Form::close() !!}
-                </div>
             </div>
         </div>
     </div>

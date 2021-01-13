@@ -18,7 +18,8 @@ class CreateEncuestaUsuariosTable extends Migration
             $table->integer('encuesta_id')->unsigned()->nullable();
             $table->integer('pregunta_id')->unsigned()->nullable();
             $table->integer('respuesta_id')->unsigned()->nullable();
-            $table->text('valor_respuesta')->default(null);
+            $table->integer('tipo_pregunta')->nullable();
+            $table->text('valor_respuesta')->nullable()->default(null);
             $table->integer('usuario_id')->unsigned()->nullable();
             /* llaves foraneas */
             $table->foreign('encuesta_id')->references('id')->on('encuestas')->onDelete('cascade');

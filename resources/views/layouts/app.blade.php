@@ -45,9 +45,9 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>{{-- cambiar por la imagen logo  --}}
-        </div>
+       {{--  <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fas fa-laugh-wink"></i>
+        </div> --}}
         
       </a>
 
@@ -139,7 +139,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Gráficos</span></a>
       </li>
@@ -292,7 +292,7 @@
         <div class="modal-body">Seleciona "Logout" si vas a finalizar sesión.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" onclick="event.preventDefault();
+          <a class="btn btn-primary text-white" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
 
         

@@ -174,23 +174,26 @@ class EncuestasController extends Controller
             //return 'encuesta';
             //return redirect('encuesta_preview/1');
             /* buscar si el usuario ya contesto la encuesta */
-                $encuesta_usuario = encuesta_usuario::where('usuario_id','=',Auth::user()->id)
-                ->get();
-                if(empty($encuesta_usuario)){
-                return 'ya ha contestado la encuesta';
-
+            $tipo_encuesta = $request->tipo_encuesta_id;
+            
+            
+            /* primero verificar si hay una encuesta disponible */
+            $encuesta = encuesta::where('tipo_encuesta_id','=',$tipo_encuesta)->where('status','=',1)->first();
+            if(!empty($encuesta)){
+                /* verificar si un usuario  ya contesto la encuesta */
+                $encuesta_usuario = encuesta_usuario::where('usuario_id',Auth::user()->id)->where('encuesta_id',$encuesta->id)->count();
+                if($encuesta_usuario>0){
+                   // return $encuesta_usuario;
+                   return view('encuestas.usuario.encuesta_contestado');
                 }else{
-                    $tipo_encuesta = $request->tipo_encuesta_id;
-                    /*  poner una encuesta  hacer un if para buscar que encuesta del tipo esta activo sino mandar mensaje que no hay encuesta  disponible */
-                    $encuesta = encuesta::where('tipo_encuesta_id','=',$tipo_encuesta)->where('status','=',1)->first();
-                    if(!empty($encuesta)){
-                        //return $encuesta;
-                        return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
-                    }else{
-                        //return $encuesta;
-                        return 'encuesta no disponible';
-                    }
+                    return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
+                   //return empty($encuesta_usuario);
                 }
+            }else{
+                //return $encuesta;
+                return view('encuestas.usuario.encuesta_no_disponible');
+            }
+               
 
         } else {
 
@@ -220,7 +223,7 @@ class EncuestasController extends Controller
         $encuesta_usuario = encuesta_usuario::where('usuario_id','=',Auth::user()->id)
                             ->get();
         if(empty($encuesta_usuario)){
-            return 'ya ha contestado la encuesta';
+            return view('encuestas.usuario.encuesta_contestado');
 
         }else{
             $tipo_encuesta = $request->tipo_encuesta_id;
@@ -230,7 +233,7 @@ class EncuestasController extends Controller
                 //return $encuesta;
                 return redirect()->route('encuesta'  , ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
             }else{
-                return 'encuesta no disponible';
+                return view('encuestas.usuario.encuestas_no_disponible');
             }
 
         }
@@ -249,13 +252,47 @@ class EncuestasController extends Controller
 
     public function guardar_encuesta(Request $request){
         $id_encuesta = $request->encuesta_id;
+        $id_user = Auth::user()->id;
 
         $encuesta = encuesta::find($id_encuesta);
         $preguntas = Pregunta::where('encuesta_id',$id_encuesta)->get();
         $respuestas =  Respuesta::where('encuesta_id', '=', $id_encuesta)->get();
-        $usuario_encuesta = new encuesta_usuario();
+        
+        foreach($preguntas as $pregunta){
+                
+               if($request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_1']){
+                   $usuario_encuesta = new encuesta_usuario();
+                   $usuario_encuesta->encuesta_id = $id_encuesta;
+                   $usuario_encuesta->pregunta_id = $pregunta->id;
+                   $usuario_encuesta->tipo_pregunta = 1;
+                   $usuario_encuesta->respuesta_id = null;
+                   $usuario_encuesta->valor_respuesta = $request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_1'];
+                   $usuario_encuesta->usuario_id = $id_user;
+                   $usuario_encuesta->save();
+               }else if($request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_2']){
+                $usuario_encuesta = new encuesta_usuario();
+                $usuario_encuesta->encuesta_id = $id_encuesta;
+                $usuario_encuesta->pregunta_id = $pregunta->id;
+                $usuario_encuesta->tipo_pregunta = 2;
+                $usuario_encuesta->respuesta_id = $request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_2'];
+                $usuario_encuesta->valor_respuesta = null;
+                $usuario_encuesta->usuario_id = $id_user;
+                $usuario_encuesta->save();
+               }else if($request['respuestas_casilla_'.$id_encuesta.'_'.$pregunta->id.'_3']){
+                /* convertir el array en string */
+                $array_respuesta = json_encode($request['respuestas_casilla_'.$id_encuesta.'_'.$pregunta->id.'_3']);
+                $usuario_encuesta = new encuesta_usuario();
+                $usuario_encuesta->encuesta_id = $id_encuesta;
+                $usuario_encuesta->pregunta_id = $pregunta->id;
+                $usuario_encuesta->tipo_pregunta = 3;
+                $usuario_encuesta->respuesta_id = null;
+                $usuario_encuesta->valor_respuesta = $array_respuesta ;
+                $usuario_encuesta->usuario_id = $id_user;
+                $usuario_encuesta->save();
+               }
+             
+        }
 
-
-        return $request->all();
+        return view('encuestas.usuario.finalizacion_encuesta');
     }
 }
