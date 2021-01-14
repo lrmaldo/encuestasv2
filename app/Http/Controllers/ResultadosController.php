@@ -89,7 +89,9 @@ class ResultadosController extends Controller
     public function grafica($id)
     {
         $encuestados = encuesta_usuario::where('encuesta_id',$id)->get();
-        return $encuestados;
+        $id_encuesta = $id;
+        return view('resultados.grafica.index',compact('encuestados','id_encuesta'));
+
     }
 
 
