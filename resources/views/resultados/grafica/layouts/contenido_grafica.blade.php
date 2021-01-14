@@ -59,7 +59,7 @@
                              foreach ($json_res_casillas as $key => $value) {
                                   $json = json_decode($value->valor_respuesta);
                                   foreach ($res_pregunta as $y => $v) {
-                                      if($v->id==$json){
+                                      if($v->id==$json[]){
                                         echo "1sasa";
                                       }
                                   }
