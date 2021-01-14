@@ -29,6 +29,7 @@ class PermissionTableSeeder extends Seeder
             'encuestas eliminar',
             'encuesta-guardar',
             'encuesta-ver',
+            'resultados',
          ];
       
          foreach ($permissions as $permission) {

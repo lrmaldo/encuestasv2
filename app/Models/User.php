@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\encuesta_usuario;
+use PhpParser\Node\Expr\FuncCall;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -44,10 +46,13 @@ class User extends Authenticatable
     ];
 
     public function encuesta(){
-       return  $this->hasMany(encuesta_usuario::class,'usuario_id','id');
+       return  $this->hasOne(encuesta_usuario::class,'usuario_id','id');
+    
     }
 
-    public function get_usuarios($id){
-       return $this->encuesta()->where('encuesta_id',$id)->get();
+    public function usuario_encuesta($id){
+        return $this->encuesta()->where('encuesta_id',$id)->first();
     }
+
+   
 }

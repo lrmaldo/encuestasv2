@@ -50,8 +50,11 @@ class ResultadosController extends Controller
     public function show($id)
     {
        // $encuestados = encuesta_usuario::with('usuario')->where('encuesta_id',$id)->get();
-        $encuestados = User::with('encuesta')->get();
-        return $encuestados;
+        //$encuestados = encuesta_usuario::where('encuesta_id',$id)->get();
+        $encuestados = User::all();
+        $id_encuesta = $id;
+        return view('resultados.encuestados.index',compact('encuestados','id_encuesta'));
+        //return $encuestados;
     }
 
     /**
@@ -87,5 +90,17 @@ class ResultadosController extends Controller
     {
         $encuestados = encuesta_usuario::where('encuesta_id',$id)->get();
         return $encuestados;
+    }
+
+
+    /* funciones de encuestado */
+
+    public function encuestado($id){
+        return $id;
+
+    }
+
+    public function eliminar_encuestado($id){
+        return $id;
     }
 }
