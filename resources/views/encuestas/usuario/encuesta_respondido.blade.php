@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema de encuestas">
     <meta name="author" content="Ing. Leonardo Maldonado">
-    <title>Contestado</title>
+    <title>Error</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -16,11 +16,11 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
-@livewireStyles
 <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
   />
+@livewireStyles
 </head>
 <body>
     <div class="container">
@@ -36,7 +36,7 @@
             </div>
           </div>
         <div class="py-5 text-center">
-        <h2 class="animate__animated animate__fadeInDown ">Gracias ya has contestado esta encuesta</h2>
+        <h2 class="animate__animated animate__bounceInDown">Ya has respondido una encuesta</h2>
         <p></p>
         <a class="btn btn-info animate__animated animate__fadeInUp animate__delay-1s" href="{{ route('home') }}"> Regresar</a>
         </div>

@@ -13,13 +13,13 @@ class encuesta_usuario extends Model
         'id',
         'encuesta_id',
         'pregunta_id',
-        'tipo_pregunta',        
+        'tipo_pregunta',
         'respuesta_id',
         'valor_respuesta',
         'usuario_id',
     ];
 
     public function usuario(){
-        return $this->belongsTo(User::class,'id','usuario_id');
+        return $this->belongsTo(User::class,'usuario_id','id');
     }
 }

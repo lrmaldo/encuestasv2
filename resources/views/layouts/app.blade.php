@@ -48,7 +48,7 @@
        {{--  <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div> --}}
-        
+
       </a>
 
       <!-- Divider -->
@@ -117,31 +117,31 @@
         <a class="nav-link" href="{{ route('users.index') }}">
           <i class="fas fa-fw fa-users"></i>
           <span>Gestión de usuarios</span></a>
-      </li> 
+      </li>
        @endcan
        @can('role-list')
        <li class="nav-item">
         <a class="nav-link" href="{{ route('roles.index') }}">
           <i class="fas fa-fw fa-users-cog"></i>
           <span>Gestión de Roles</span></a>
-      </li> 
-       @endcan 
+      </li>
+       @endcan
        @can('encuestas lista')
        <li class="nav-item">
         <a class="nav-link" href="{{ route('encuestas.index') }}">
           <i class="fas fa-fw fa-file-alt"></i>
           <span>Encuestas</span></a>
       </li>
-      @endcan  
+      @endcan
       @endguest
       <!-- Nav Item - Pages Collapse Menu -->
-      
+
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="/">
           <i class="fas fa-fw fa-chart-area"></i>
-          <span>Gráficos</span></a>
+          <span>Resultados</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
@@ -211,26 +211,26 @@
               </div>
             </li>
 
-           
 
-          
+
+
 
             <div class="topbar-divider d-none d-sm-block"></div>
             @guest
 
-            
+
             @else
-            
+
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">  {{ Auth::user()->name }}</span>
-               
+
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="#">
-                  
+
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
@@ -248,7 +248,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-         
+
           <main >
             @yield('content')
         </main>
@@ -295,7 +295,7 @@
           <a class="btn btn-primary text-white" onclick="event.preventDefault();
           document.getElementById('logout-form').submit();"> {{ __('Logout') }}</a>
 
-        
+
 
        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
            @csrf
@@ -305,7 +305,7 @@
     </div>
   </div>
 
-    
+
     </div>
     @livewireScripts
     <!-- Bootstrap core JavaScript-->
@@ -327,7 +327,7 @@
 </body>
 </html>
 
-{{-- 
+{{--
      @guest
                 <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                 <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
@@ -337,9 +337,9 @@
                     @endcan
 
                     @can('role-list')
-                  
+
                      <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                        
+
                     @endcan
      @endguest
     --}}

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-
+use App\Models\encuesta_usuario;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -42,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function encuesta(){
+       return  $this->hasMany(encuesta_usuario::class,'usuario_id','id');
+    }
+
+    public function get_usuarios($id){
+       return $this->encuesta()->where('encuesta_id',$id)->get();
+    }
 }

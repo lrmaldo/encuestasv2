@@ -6,7 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PreguntasController;
 use App\Http\Controllers\RespuestasController;
-
+use \App\Http\Controllers\ResultadosController;
 //use App\Http\Livewire\Encuestas;
 
 
@@ -37,6 +37,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('encuestas',EncuestasController::class);
     Route::resource('respuestas',RespuestasController::class);
 
+
     Route::GET('encuesta_preview/{id}',[EncuestasController::class,'preview']);
 
     Route::POST('encuesta_tipo',[ EncuestasController::class,'encuesta_tipo']);
@@ -44,6 +45,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::POST('datos_store',[EncuestasController::class,'datos_store']);
     Route::GET('encuesta/{id_usuario}/{id_encuesta}',[EncuestasController::class,'encuesta_usuario'])->name('encuesta');
     Route::POST('encuesta/post',[EncuestasController::class,'guardar_encuesta']);
+
+    /* resultados */
+    Route::GET('resultados',[ResultadosController::class,'index'])->name('resultados');
+    Route::GET('resultados/{id}',[ResultadosController::class,'show'])->name('resultados.show');
+    Route::GET('grafica/{id}',[ResultadosController::class,'grafica'])->name('grafica');
 });
 
 Route::get('example', function () {

@@ -175,8 +175,8 @@ class EncuestasController extends Controller
             //return redirect('encuesta_preview/1');
             /* buscar si el usuario ya contesto la encuesta */
             $tipo_encuesta = $request->tipo_encuesta_id;
-            
-            
+
+
             /* primero verificar si hay una encuesta disponible */
             $encuesta = encuesta::where('tipo_encuesta_id','=',$tipo_encuesta)->where('status','=',1)->first();
             if(!empty($encuesta)){
@@ -186,14 +186,25 @@ class EncuestasController extends Controller
                    // return $encuesta_usuario;
                    return view('encuestas.usuario.encuesta_contestado');
                 }else{
-                    return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
+                    #auxiliar
+                    $aux = $tipo_encuesta_id=1? 1 : 2;
+                    if($aux==1){
+                        $aux_e = encuesta::where('tipo_encuesta_id','=',2)->where('status','=',1)->first();
+                        if(!isset($aux_e)){
+
+                            return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
+                        }else{
+                           return  view('encuestas.usuario.encuesta_respondido');
+                        }
+                    }
+
                    //return empty($encuesta_usuario);
                 }
             }else{
                 //return $encuesta;
                 return view('encuestas.usuario.encuesta_no_disponible');
             }
-               
+
 
         } else {
 
@@ -257,9 +268,9 @@ class EncuestasController extends Controller
         $encuesta = encuesta::find($id_encuesta);
         $preguntas = Pregunta::where('encuesta_id',$id_encuesta)->get();
         $respuestas =  Respuesta::where('encuesta_id', '=', $id_encuesta)->get();
-        
+
         foreach($preguntas as $pregunta){
-                
+
                if($request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_1']){
                    $usuario_encuesta = new encuesta_usuario();
                    $usuario_encuesta->encuesta_id = $id_encuesta;
@@ -290,7 +301,7 @@ class EncuestasController extends Controller
                 $usuario_encuesta->usuario_id = $id_user;
                 $usuario_encuesta->save();
                }
-             
+
         }
 
         return view('encuestas.usuario.finalizacion_encuesta');
