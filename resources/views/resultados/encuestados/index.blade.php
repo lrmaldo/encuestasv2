@@ -58,7 +58,7 @@
                         <td>{{ $user->email}}</td>
                         
                         <td>
-                            <a class="btn btn-info" href="{{ route('encuestado.show', $encuestado->id) }}">Ver encuesta</a>
+                            <a class="btn btn-info" href="{{ route('encuestado.show', [$encuestado->id,$id_encuesta]) }}">Ver encuesta</a>
                            {{--  <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Editar</a> --}}
                             {!! Form::open(['method' => 'DELETE', 'route' => ['encuestado.destroy', $encuestado->id], 'style' =>
                             'display:inline']) !!}

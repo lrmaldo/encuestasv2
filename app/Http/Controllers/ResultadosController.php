@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\encuesta;
 use App\Models\encuesta_usuario;
+use App\Models\Pregunta;
 use \App\Models\User;
 
 class ResultadosController extends Controller
@@ -97,8 +98,11 @@ class ResultadosController extends Controller
 
     /* funciones de encuestado */
 
-    public function encuestado($id){
-        return $id;
+    public function encuestado($id,$id_encuesta){
+        $id_encuestado =$id; 
+        $encuesta = encuesta::find($id_encuesta);
+        $preguntas = Pregunta::where('encuesta_id',$id_encuesta)->get();
+        return view('resultados.encuestados.vista_encuestado',compact('id_encuestado','encuesta','preguntas'));
 
     }
 

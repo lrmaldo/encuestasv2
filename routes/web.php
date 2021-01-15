@@ -51,8 +51,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::GET('resultados/{id}',[ResultadosController::class,'show'])->name('resultados.show');
     Route::GET('grafica/{id}',[ResultadosController::class,'grafica'])->name('grafica');
 
-    Route::GET('encuestado/{id}',[ResultadosController::class,'encuestado'])->name('encuestado.show');
-    Route::GET('encuestado/destroy/{id}',[ResultadosController::class,'eliminar_encuestado'])->name('encuestado.destroy');
+    Route::GET('encuestado/{id}/{id_encuesta}',[ResultadosController::class,'encuestado'])->name('encuestado.show');
+    Route::DELETE('encuestado/destroy/{id}',[ResultadosController::class,'eliminar_encuestado'])->name('encuestado.destroy');
 });
 
 Route::get('example', function () {
