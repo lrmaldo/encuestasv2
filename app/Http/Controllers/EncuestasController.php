@@ -291,15 +291,23 @@ class EncuestasController extends Controller
                 $usuario_encuesta->save();
                }else if($request['respuestas_casilla_'.$id_encuesta.'_'.$pregunta->id.'_3']){
                 /* convertir el array en string */
-                $array_respuesta = json_encode($request['respuestas_casilla_'.$id_encuesta.'_'.$pregunta->id.'_3']);
-                $usuario_encuesta = new encuesta_usuario();
-                $usuario_encuesta->encuesta_id = $id_encuesta;
-                $usuario_encuesta->pregunta_id = $pregunta->id;
-                $usuario_encuesta->tipo_pregunta = 3;
-                $usuario_encuesta->respuesta_id = null;
-                $usuario_encuesta->valor_respuesta = $array_respuesta ;
-                $usuario_encuesta->usuario_id = $id_user;
-                $usuario_encuesta->save();
+                //$array_respuesta = json_encode($request['respuestas_casilla_'.$id_encuesta.'_'.$pregunta->id.'_3']);
+                $array_respuesta =  $request['respuestas_casilla_'.$id_encuesta.'_'.$pregunta->id.'_3'];
+
+
+                /* interacion del array de las casillas y las guarda como un registro */
+                foreach ($array_respuesta as $key => $value) {
+
+                    $usuario_encuesta = new encuesta_usuario();
+                    $usuario_encuesta->encuesta_id = $id_encuesta;
+                    $usuario_encuesta->pregunta_id = $pregunta->id;
+                    $usuario_encuesta->tipo_pregunta = 3;
+                    $usuario_encuesta->respuesta_id = $value;
+                    $usuario_encuesta->valor_respuesta = null ;
+                    $usuario_encuesta->usuario_id = $id_user;
+                    $usuario_encuesta->save();
+                }
+
                }
 
         }

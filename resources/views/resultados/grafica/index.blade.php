@@ -10,13 +10,13 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
+
     <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 <!-- Custom styles for this template-->
-<link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
-@livewireStyles
+<link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet"> <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
  <div class="container">
@@ -25,7 +25,7 @@
          <img src="{{asset('/img/Logo_TECNM-1024x438.png')}}" width="250px" alt="" class="img-responsive">
         </div>
         <div class="col-3 mt-1 text-center">
-            
+
         </div>
         <div class="col-3 mt-1">
             <img src="{{asset('/img/logo_tec_tux.png')}}" width="100px" alt="" class="img-responsive ">
@@ -37,17 +37,17 @@
     @else
     @include('resultados.grafica.layouts.contenido_grafica')
     @endif
-       
+
       </div>
-      
+
 
 
  </div>
 
 
-    
 
-    
+
+
 
  <!-- Bootstrap core JavaScript-->
  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
