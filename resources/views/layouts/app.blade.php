@@ -133,24 +133,16 @@
           <span>Encuestas</span></a>
       </li>
       @endcan
-      @endguest
-      <!-- Nav Item - Pages Collapse Menu -->
-
-
-      <!-- Nav Item - Charts -->
+      @can('resultados')
       <li class="nav-item">
         <a class="nav-link" href="{{ route('resultados') }}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Resultados</span></a>
       </li>
-
-      <!-- Nav Item - Tables -->
-     {{--  <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
- --}}
+      
+      @endcan
+      @endguest
+    
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -284,7 +276,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Cerrar sesión</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>

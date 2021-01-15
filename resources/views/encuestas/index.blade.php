@@ -51,7 +51,11 @@
                         <td>{{ $item->titulo }}</td>
                         <td>{{ $item->descripcion }}</td>
                         <td>{{$item->tipo_encuesta->nombre}}</td>
-                        <td>{{$item->status ==1 ? 'Activo': 'Desactivado'}}</td>
+                        <td>@if ($item->status ==1)
+                            <label class="badge badge-success text-white">Activo</label>
+                        @else
+                        <label class="badge badge-danger text-white">Desactivado</label>
+                        @endif </td>
                         {{-- <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)

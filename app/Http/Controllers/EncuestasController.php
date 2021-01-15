@@ -167,36 +167,41 @@ class EncuestasController extends Controller
     {
 
         $id_user = Auth::user()->id;
-        //$buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->first();
+        $buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->first();
         $tipo_encuesta_id = $request->tipo_encuesta_id;
         $encuesta = encuesta::where('tipo_encuesta_id',$tipo_encuesta_id)->where('status',1)->first();
-        if($encuesta){
-            /* esta disponible */
-            
-            $contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$encuesta->id)->count();
-            
-            if($contestado>0){/* condicion si exite registros del usuario en la encuesta */
-                return view('encuestas.usuario.encuesta_contestado');
-            }else{
-                $aux_tipo = $tipo_encuesta_id == 1?2:1;
-                $aux_e =encuesta::where('tipo_encuesta_id',$aux_tipo)->where('status',1)->first();
-                if($aux_e){/* recibir si el otro tipo de encuesta esta disponible */
-                    $aux_contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$aux_e->id)->count();
-                 #entonces si contestado es mayor a cero y aux_contesdado es igual a cero 
-                    if($aux_contestado>0){
-                        return  view('encuestas.usuario.encuesta_respondido');
+        if($buscar_datos){
+            if($encuesta){
+                /* esta disponible */
+                
+                $contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$encuesta->id)->count();
+                
+                if($contestado>0){/* condicion si exite registros del usuario en la encuesta */
+                    return view('encuestas.usuario.encuesta_contestado');
+                }else{
+                    $aux_tipo = $tipo_encuesta_id == 1?2:1;
+                    $aux_e =encuesta::where('tipo_encuesta_id',$aux_tipo)->where('status',1)->first();
+                    if($aux_e){/* recibir si el otro tipo de encuesta esta disponible */
+                        $aux_contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$aux_e->id)->count();
+                     #entonces si contestado es mayor a cero y aux_contesdado es igual a cero 
+                        if($aux_contestado>0){
+                            return  view('encuestas.usuario.encuesta_respondido');
+                        }else{
+                            return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
+                        }
                     }else{
+                        /* cambiar*********** */
                         return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
                     }
-                }else{
-                    /* cambiar*********** */
-                    return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
                 }
+                
+            }else{
+                /* encuesta del tipo no disponible */
+                return view('encuestas.usuario.encuesta_no_disponible');
             }
-            
         }else{
-            /* encuesta del tipo no disponible */
-            return view('encuestas.usuario.encuesta_no_disponible');
+            return view('datos_generales.index',compact('tipo_encuesta_id'));
+
         }
     }
     public function datos_generales(){
