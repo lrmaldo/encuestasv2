@@ -52,7 +52,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::GET('grafica/{id}',[ResultadosController::class,'grafica'])->name('grafica');
 
     Route::GET('encuestado/{id}/{id_encuesta}',[ResultadosController::class,'encuestado'])->name('encuestado.show');
-    Route::DELETE('encuestado/destroy/{id}',[ResultadosController::class,'eliminar_encuestado'])->name('encuestado.destroy');
+    Route::DELETE('encuestado/destroy/{id_usuario}/{id_encuesta}',[ResultadosController::class,'eliminar_encuestado'])->name('encuestado.destroy');
 });
 
 Route::get('example', function () {

@@ -139,7 +139,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="{{ route('resultados') }}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Resultados</span></a>
       </li>

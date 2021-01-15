@@ -167,50 +167,36 @@ class EncuestasController extends Controller
     {
 
         $id_user = Auth::user()->id;
-        $buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->first();
+        //$buscar_datos = Datos_generales::where('usuario_id', '=', $id_user)->first();
         $tipo_encuesta_id = $request->tipo_encuesta_id;
-        if (!is_null($buscar_datos)) {
-
-            //return 'encuesta';
-            //return redirect('encuesta_preview/1');
-            /* buscar si el usuario ya contesto la encuesta */
-            $tipo_encuesta = $request->tipo_encuesta_id;
-
-
-            /* primero verificar si hay una encuesta disponible */
-            $encuesta = encuesta::where('tipo_encuesta_id','=',$tipo_encuesta)->where('status','=',1)->first();
-            if(!empty($encuesta)){
-                /* verificar si un usuario  ya contesto la encuesta */
-                $encuesta_usuario = encuesta_usuario::where('usuario_id',Auth::user()->id)->where('encuesta_id',$encuesta->id)->count();
-                if($encuesta_usuario>0){
-                   // return $encuesta_usuario;
-                   return view('encuestas.usuario.encuesta_contestado');
-                }else{
-                    #auxiliar
-                    $aux = $tipo_encuesta_id=1? 1 : 2;
-                    if($aux==1){
-                        $aux_e = encuesta::where('tipo_encuesta_id','=',2)->where('status','=',1)->first();
-                        if(!isset($aux_e)){
-
-                            return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
-                        }else{
-                           return  view('encuestas.usuario.encuesta_respondido');
-                        }
-                    }
-
-                   //return empty($encuesta_usuario);
-                }
+        $encuesta = encuesta::where('tipo_encuesta_id',$tipo_encuesta_id)->where('status',1)->first();
+        if($encuesta){
+            /* esta disponible */
+            
+            $contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$encuesta->id)->count();
+            
+            if($contestado>0){/* condicion si exite registros del usuario en la encuesta */
+                return view('encuestas.usuario.encuesta_contestado');
             }else{
-                //return $encuesta;
-                return view('encuestas.usuario.encuesta_no_disponible');
+                $aux_tipo = $tipo_encuesta_id == 1?2:1;
+                $aux_e =encuesta::where('tipo_encuesta_id',$aux_tipo)->where('status',1)->first();
+                if($aux_e){/* recibir si el otro tipo de encuesta esta disponible */
+                    $aux_contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$aux_e->id)->count();
+                 #entonces si contestado es mayor a cero y aux_contesdado es igual a cero 
+                    if($aux_contestado>0){
+                        return  view('encuestas.usuario.encuesta_respondido');
+                    }else{
+                        return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
+                    }
+                }else{
+                    /* cambiar*********** */
+                    return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
+                }
             }
-
-
-        } else {
-
-           return view('datos_generales.index',compact('tipo_encuesta_id'));
-            //return 'formula de datos';
-            //$request->all();
+            
+        }else{
+            /* encuesta del tipo no disponible */
+            return view('encuestas.usuario.encuesta_no_disponible');
         }
     }
     public function datos_generales(){
@@ -232,8 +218,8 @@ class EncuestasController extends Controller
         $datos->save();
         /* buscar si el usuario ya contesto la encuesta */
         $encuesta_usuario = encuesta_usuario::where('usuario_id','=',Auth::user()->id)
-                            ->get();
-        if(empty($encuesta_usuario)){
+                            ->count();
+        if($encuesta_usuario>0){
             return view('encuestas.usuario.encuesta_contestado');
 
         }else{

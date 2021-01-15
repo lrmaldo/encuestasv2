@@ -106,7 +106,8 @@ class ResultadosController extends Controller
 
     }
 
-    public function eliminar_encuestado($id){
-        return $id;
+    public function eliminar_encuestado($id_usuario, $id_encuesta){
+        encuesta_usuario::where('encuesta_id',$id_encuesta)->where('usuario_id',$id_usuario)->delete();
+        return redirect()->back();
     }
 }
