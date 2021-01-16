@@ -37,20 +37,25 @@
                 <tbody>
                     @php
                        $id_user = null;
-                       $user =null;
-                    @endphp
-                    @foreach ($encuestados as $key => $encuestado)
-                    @php
-                                $id_user =$encuestado->usuario_encuesta($id_encuesta);
+                       $users =[];
+
+                       foreach ($encuestados as $key => $value) {
+                        $id_user =$value->usuario_encuesta($id_encuesta);
                                 if($id_user){
                              //echo $id_user;
-                                    $user = App\Models\User::find($id_user->usuario_id);
+                                    $user = App\Models\User::where('id',$id_user->usuario_id)->first();
+                                    array_push($users,$user);
                             }
+                       }
+                    @endphp
+                    @foreach ($users as $key => $user)
+                    @php
+                              
                         
                     @endphp
                     <tr>
                         
-                        @if (!is_null($user))
+                      
                             
                         
                         <td>{{ $user->id }}</td>
@@ -58,14 +63,14 @@
                         <td>{{ $user->email}}</td>
                         
                         <td>
-                            <a class="btn btn-info" href="{{ route('encuestado.show', [$encuestado->id,$id_encuesta]) }}">Ver encuesta</a>
+                            <a class="btn btn-info" href="{{ route('encuestado.show', [$user->id,$id_encuesta]) }}">Ver encuesta</a>
                            {{--  <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Editar</a> --}}
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['encuestado.destroy', [$encuestado->id,$id_encuesta]], 'style' =>
+                            {!! Form::open(['method' => 'DELETE', 'route' => ['encuestado.destroy', [$user->id,$id_encuesta]], 'style' =>
                             'display:inline']) !!}
                             {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
                             {!! Form::close() !!}
                         </td>
-                        @endif
+                        
                     </tr>
                 @endforeach
                 </tbody>

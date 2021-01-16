@@ -53,6 +53,8 @@ class User extends Authenticatable
     public function usuario_encuesta($id){
         return $this->encuesta()->where('encuesta_id',$id)->first();
     }
+   
+    
 
    
 }

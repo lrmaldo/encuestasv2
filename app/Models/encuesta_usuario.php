@@ -23,6 +23,9 @@ class encuesta_usuario extends Model
         return $this->hasOne(User::class,'usuario_id','id');
     }
 
+    public function get_encuesta(){
+        return $this->belongsTo(encuesta::class,'encuesta_id');
+    }
    /*  public function get_usuarios(){
         return $this->hasMany(User::class,'usuario_id','id');
      } */
