@@ -8,22 +8,35 @@
     $total_de_encuestados = App\Models\User::role('encuestado')->get();
 
     /* variables de la grafica de genero */
-  $Maculino = App\Models\Datos_generales::where('genero','like','%Masculino%')->count(); 
+  $Masculino = App\Models\Datos_generales::where('genero','like','%Masculino%')->count(); 
   $Femenino = App\Models\Datos_generales::where('genero','like','%Femenino%')->count(); 
 
   $total_egresados = 0;
   $total_empleados =0;
 $encuestas = App\Models\encuesta::all();
-  $dato =  0;
-  foreach ($total_de_encuestados as $key => $value) {
-      
-  }
+  $dato = DB::table('users')
+        ->join('encuesta_usuarios','users.id','encuesta_usuarios.usuario_id')
+        ->join('encuestas','encuestas.id','encuesta_usuarios.encuesta_id')
+        ->get();
+
+        foreach ($dato as $key => $value) {
+            if($value->tipo_encuesta_id == 1){
+
+                $total_egresados++;
+            }elseif ($value->tipo_encuesta_id == 2) {
+                $total_empleados++;
+            }
+
+        }
+        $total_tipo=$total_egresados +$total_empleados;
+        $array_tipos =array($total_egresados,$total_empleados);
+        $array_genero =array($Masculino,$Femenino);
 @endphp
 
 <div class="container">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-         e {{$total_egresados}} em {{$dato}}
+        
       </div>
 <!-- Content Row -->
 <div class="row">
@@ -118,7 +131,7 @@ $encuestas = App\Models\encuesta::all();
         <!-- Card Body -->
         <div class="card-body">
           <div class="chart-area">
-            <canvas id="myAreaChart"></canvas>
+            <canvas id="myBarChart"></canvas>
           </div>
         </div>
       </div>
@@ -144,7 +157,55 @@ $encuestas = App\Models\encuesta::all();
   </div>
 
 
+  <script>
+      
+ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                            Chart.defaults.global.defaultFontColor = '#292b2c';
 
+
+                            // Bar Chart Example
+                            var ctx = document.getElementById("myBarChart");
+                            var myLineChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Egresados','Empleadores'],
+                        datasets: [{
+                        label: "Encuestados",
+                        backgroundColor: "rgba(2,117,216,1)",
+                        borderColor: "rgba(2,117,216,1)",
+                        data: {!! json_encode($array_tipos)!!},
+                        }],
+                    },
+                    options: {
+                        scales: {
+                        xAxes: [{
+                            time: {
+                            unit: 'month'
+                            },
+                            gridLines: {
+                            display: false
+                            },
+                            ticks: {
+                            maxTicksLimit: 6
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                            min: 0,
+                            max: {!! json_encode($total_tipo) !!},
+                            maxTicksLimit: 5
+                            },
+                            gridLines: {
+                            display: true
+                            }
+                        }],
+                        },
+                        legend: {
+                        display: false
+                        }
+                    }
+                    });
+  </script>
 
 </div>
 @endsection
