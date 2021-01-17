@@ -54,6 +54,9 @@ class User extends Authenticatable
         return $this->encuesta()->where('encuesta_id',$id)->first();
     }
    
+    public function Datos(){
+        return $this->hasOne(Datos_generales::class,'usuario_id','id');
+    }
     
 
    

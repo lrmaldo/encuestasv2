@@ -11,25 +11,18 @@
   $Masculino = App\Models\Datos_generales::where('genero','like','%Masculino%')->count(); 
   $Femenino = App\Models\Datos_generales::where('genero','like','%Femenino%')->count(); 
 
-  $total_egresados = 0;
-  $total_empleados =0;
-$encuestas = App\Models\encuesta::all();
-  $dato = DB::table('users')
-        ->join('encuesta_usuarios','users.id','encuesta_usuarios.usuario_id')
-        ->join('encuestas','encuestas.id','encuesta_usuarios.encuesta_id')
-        ->get();
-
-        foreach ($dato as $key => $value) {
-            if($value->tipo_encuesta_id == 1){
-
-                $total_egresados++;
-            }elseif ($value->tipo_encuesta_id == 2) {
-                $total_empleados++;
-            }
-
-        }
-        $total_tipo=$total_egresados +$total_empleados;
-        $array_tipos =array($total_egresados,$total_empleados);
+  /* edades de 18 a 25 */
+  $entre18 = App\Models\Datos_generales::whereBetween('edad',[18 , 25])->count();
+  /* edades de 26 a 30 */
+  $entre26a30 = App\Models\Datos_generales::whereBetween('edad',[26 , 30])->count();
+  /* edades de 31 a 35  */
+  $entre31a35 = App\Models\Datos_generales::whereBetween('edad',[31 , 35])->count();
+  /* más de 35 años */
+  $masde36 = App\Models\Datos_generales::where('edad','>',36)->count();
+ 
+ 
+        $total_edades=$entre18+$entre26a30+$entre31a35+$masde36;
+        $array_edades =array($entre18,$entre26a30,$entre31a35,$masde36);
         $array_genero =array($Masculino,$Femenino);
 @endphp
 
@@ -101,11 +94,11 @@ $encuestas = App\Models\encuesta::all();
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+              <div ><a class="text-xs font-weight-bold text-warning text-uppercase mb-1" href="{{ route('encuestas.index') }}">Ir a encuestas</a></div>
+             
             </div>
             <div class="col-auto">
-              <i class="fas fa-comments fa-2x text-gray-300"></i>
+              <i class="fas fa-file-alt fa-2x text-gray-300"></i>
             </div>
           </div>
         </div>
@@ -121,11 +114,11 @@ $encuestas = App\Models\encuesta::all();
   <div class="row">
 
     <!-- Area Chart -->
-    <div class="col-xl-8 col-lg-7">
+    <div class="col-xl-6 col-lg-7">
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Gráfica de egresados y empleadores</h6>
+          <h6 class="m-0 font-weight-bold text-primary">Gráfica de edades</h6>
           
         </div>
         <!-- Card Body -->
@@ -138,16 +131,17 @@ $encuestas = App\Models\encuesta::all();
     </div>
 
     <!-- Pie Chart -->
-    <div class="col-xl-4 col-lg-5">
+    <div class="col-xl-6 col-lg-5">
       <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-          <h6 class="m-0 font-weight-bold text-primary">Gráfica de genero</h6>
+          
+          <h6 class="m-0 font-weight-bold text-primary">   <i class="fas fa-chart-pie mr-1"></i>Gráfica de genero</h6>
           
         </div>
         <!-- Card Body -->
         <div class="card-body">
-          <div class="chart-pie pt-4 pb-2">
+          <div class="chart-pie ">
             <canvas id="migrafica_generos"></canvas>
           </div>
           
@@ -168,12 +162,12 @@ $encuestas = App\Models\encuesta::all();
                             var myLineChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Egresados','Empleadores'],
+                        labels: ['18 a 25 años','26 a 30 años','31 a 35 años','más de 36 años'],
                         datasets: [{
                         label: "Encuestados",
                         backgroundColor: "rgba(2,117,216,1)",
                         borderColor: "rgba(2,117,216,1)",
-                        data: {!! json_encode($array_tipos)!!},
+                        data: {!! json_encode($array_edades)!!},
                         }],
                     },
                     options: {
@@ -192,7 +186,7 @@ $encuestas = App\Models\encuesta::all();
                         yAxes: [{
                             ticks: {
                             min: 0,
-                            max: {!! json_encode($total_tipo) !!},
+                            max: {!! json_encode($total_edades) !!},
                             maxTicksLimit: 5
                             },
                             gridLines: {
@@ -204,6 +198,26 @@ $encuestas = App\Models\encuesta::all();
                         display: false
                         }
                     }
+                    });
+
+
+                    /* grafica de genero */
+
+                   // Set new default font family and font color to mimic Bootstrap's default styling
+                    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+                    // Pie Chart Example
+                    var ctx = document.getElementById("migrafica_generos");
+                    var myPieChart = new Chart(ctx, {
+                      type: 'pie',
+                      data: {
+                        labels: ["Hombres", "Mujeres"],
+                        datasets: [{
+                          data: {!! json_encode($array_genero) !!},
+                          backgroundColor: ['#007bff', '#dc3545'],
+                        }],
+                      },
                     });
   </script>
 
