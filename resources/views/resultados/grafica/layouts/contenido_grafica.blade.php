@@ -1,6 +1,6 @@
 @php
     $encuesta = App\Models\encuesta::find($id_encuesta);
-    $preguntas = App\Models\pregunta::where('encuesta_id',$id_encuesta)->get();
+    $preguntas = App\Models\Pregunta::where('encuesta_id',$id_encuesta)->get();
 @endphp
 
 <h2>{{$encuesta->titulo}}</h2>
