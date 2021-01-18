@@ -6,6 +6,7 @@
 @php
     $total_encuestas = App\Models\encuesta::all()->count();
     $total_de_encuestados = App\Models\User::role('encuestado')->get();
+    
 
     /* variables de la grafica de genero */
   $Masculino = App\Models\Datos_generales::where('genero','like','%Masculino%')->count(); 
@@ -220,6 +221,60 @@
                       },
                     });
   </script>
+
+
+{{-- encuestados --}}
+
+<div class="card-body">
+  <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+              <th>No</th>
+              <th>Nombre</th>
+              <th>Edad</th>
+              <th>Ciudad</th>
+              <th>CP</th>
+              <th>Teléfono</th>
+              <th >Fecha de registro</th>
+          </thead>
+          <tbody>
+            @php
+                $i=0;
+            @endphp
+              @foreach ($total_de_encuestados as $key => $user)
+              <tr>
+                  <td>{{ ++$i }}</td>
+                  <td>{{ $user->name }}</td>
+                  <td>{{ $user->Datos->edad }}</td>
+                  <td>{{ $user->Datos->ciudad}}</td>
+                  <td>{{ $user->Datos->cp}}</td>
+                  <td>{{ $user->Datos->telefono}}</td>
+                  <td>{{ date_format($user->Datos->created_at,'d/m/Y h:i:s A') }}</td>
+                  {{-- <td>
+                      @if (!empty($user->getRoleNames()))
+                          @foreach ($user->getRoleNames() as $v)
+                              <label class="badge badge-success">{{ $v }}</label>
+                          @endforeach
+                      @endif
+                  </td> --}}
+                
+                     {{--  <a class="btn btn-info" href="{{ route('users.show', $user->id) }}">Ver</a>
+                      <a class="btn btn-primary" href="{{ route('users.edit', $user->id) }}">Editar</a>
+                      {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' =>
+                      'display:inline']) !!}
+                      {!! Form::submit('Eliminar', ['class' => 'btn btn-danger']) !!}
+                      {!! Form::close() !!} --}}
+                
+              </tr>
+          @endforeach
+          </tbody>
+      </table>
+     
+
+  
+  </div>
+</div>
+
 
 </div>
 @endsection
