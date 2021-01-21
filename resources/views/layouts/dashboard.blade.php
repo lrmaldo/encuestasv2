@@ -232,6 +232,7 @@
               <th>No</th>
               <th>Nombre</th>
               <th>Edad</th>
+               <th>Domicilio</th>
               <th>Ciudad</th>
               <th>CP</th>
               <th>Teléfono</th>
@@ -246,6 +247,7 @@
                   <td>{{ ++$i }}</td>
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->Datos->edad }}</td>
+                  <td>{{ $user->Datos->domicilio}}</td>
                   <td>{{ $user->Datos->ciudad}}</td>
                   <td>{{ $user->Datos->cp}}</td>
                   <td>{{ $user->Datos->telefono}}</td>

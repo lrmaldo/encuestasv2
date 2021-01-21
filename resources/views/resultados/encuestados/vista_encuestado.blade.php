@@ -48,6 +48,7 @@
                 <li class="list-group-item"><strong>Genero:</strong> {{$datos_encuestado->genero}}</li>
                 <li class="list-group-item"><strong>Edad:</strong> {{$datos_encuestado->edad}}</li>
                 <li class="list-group-item"><strong>Ciudad:</strong> {{$datos_encuestado->ciudad}}</li>
+                <li class="list-group-item"><strong>Domicilio:</strong> {{$datos_encuestado->domicilio}}</li>
                 <li class="list-group-item"><strong>Código Postal:</strong> {{$datos_encuestado->cp}}</li>
                 <li class="list-group-item"><strong>Teléfono:</strong> {{$datos_encuestado->telefono}}</li>
               </ul>
