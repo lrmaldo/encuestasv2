@@ -15,6 +15,13 @@ class ResultadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:encuestas lista');
+        /* $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]); */
+    }
     public function index()
     {
         $data = encuesta::all();

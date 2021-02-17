@@ -246,12 +246,12 @@
               <tr>
                   <td>{{ ++$i }}</td>
                   <td>{{ $user->name }}</td>
-                  <td>{{ $user->Datos->edad }}</td>
-                  <td>{{ $user->Datos->domicilio}}</td>
-                  <td>{{ $user->Datos->ciudad}}</td>
-                  <td>{{ $user->Datos->cp}}</td>
-                  <td>{{ $user->Datos->telefono}}</td>
-                  <td>{{ date_format($user->Datos->created_at,'d/m/Y h:i:s A') }}</td>
+                  <td>{{ isset($user->Datos->edad)?$user->Datos->edad:'sin datos' }}</td>
+                  <td>{{ isset($user->Datos->domicilio)?$user->Datos->domicilio:'sin datos'}}</td>
+                  <td>{{ isset($user->Datos->ciudad)?$user->Datos->ciudad:'sin datos'}}</td>
+                  <td>{{ isset($user->Datos->cp)?$user->Datos->cp:'sin datos'}}</td>
+                  <td>{{ isset($user->Datos->telefono)?$user->Datos->telefono:'sin datos'}}</td>
+                  <td>{{ isset($user->Datos->created_at)?date_format($user->Datos->created_at,'d/m/Y h:i:s A'):'sin datos' }}</td>
                   {{-- <td>
                       @if (!empty($user->getRoleNames()))
                           @foreach ($user->getRoleNames() as $v)
