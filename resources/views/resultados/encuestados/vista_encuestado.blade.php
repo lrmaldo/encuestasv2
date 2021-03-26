@@ -73,23 +73,34 @@
                        $res_text = App\Models\encuesta_usuario::where('encuesta_id',$encuesta->id)->where('pregunta_id',$pregunta->id)
                                                                 ->where('usuario_id',$id_encuestado)->first();
                     @endphp
-                   {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', $res_text->valor_respuesta, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control','required'=>'required', 'disabled'=>'disabled']) !!}
+                      @if (isset($res_text->valor_respuesta))
+                      
+                      {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', $res_text->valor_respuesta?$res_text->valor_respuesta:'no hay respuesta', ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control','required'=>'required', 'disabled'=>'disabled']) !!}
+                      @else
+                          {{'no hay respuesta'}}
+                      @endif
                        @break
                    @case(2)
                     @php
-                        $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
+                       
+                       $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
                     @endphp
                    <div class="form-group">
-                        @foreach ($res_pregunta as $item)
+                        @forelse ($res_pregunta as $item)
                         @php
                         $respuesta_usuario = App\Models\encuesta_usuario::where('encuesta_id',$encuesta->id)->where('pregunta_id',$pregunta->id)
                                                                  ->where('usuario_id',$id_encuestado)->first();
                      @endphp
-
+                        @isset($respuesta_usuario->respuesta_id)
+                            
                         {!! Form::radio('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_2',$item->id,$respuesta_usuario->respuesta_id=$item->id?true:false,['required'=>'required','disabled'=>'disabled'])!!}
                         {!!  Form::label('respuesta_'.$encuesta->id .'_'.$pregunta->id.'_2', $item->texto, null) !!} <br>
-
-                        @endforeach
+                        @endisset 
+                            
+                      
+                        @empty
+                        <p>no hay respuesta</p>
+                        @endforelse
                    </div>
                        @break
                     @case(3)
@@ -99,15 +110,23 @@
                        
                        <div class="form-group options-{{$pregunta->id}}">
                        
-                       @foreach($res_pregunta as $value)
+                        
+                       @forelse($res_pregunta as $value)
                        @php
                        $respuesta_usuario = App\Models\encuesta_usuario::where('encuesta_id',$encuesta->id)->where('pregunta_id',$pregunta->id)
                                                                 ->where('usuario_id',$id_encuestado)->first();
                         @endphp
-                           {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, $respuesta_usuario->respuesta_id=$value->id?true:false, array('class' => 'name', 'required' =>'required', 'disabled'=>'disabled')) }}
-                                {{ $value->texto }}
-                                <br/>
-                            @endforeach
+                        @isset($respuesta_usuario->respuesta_id)
+                        {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, $respuesta_usuario->respuesta_id=$value->id?true:false, array('class' => 'name', 'required' =>'required', 'disabled'=>'disabled')) }}
+                             {{ $value->texto }}
+                             <br/>
+                            
+                        @endisset
+                         
+                        @empty
+                            
+                        <p>No hay respuesta</p>
+                        @endforelse
                         </div>
                         {{-- validacion de required jquery --}}
                         <script>

@@ -52,7 +52,7 @@
               
                @switch($pregunta->tipo_pregunta_id)
                    @case(1)
-                   {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control','required'=>'required']) !!}
+                   {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control']) !!}
                        @break
                    @case(2)
                     @php

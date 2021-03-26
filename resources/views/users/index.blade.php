@@ -31,7 +31,7 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                    <th>No</th>
+                    <th>Id</th>
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Rol</th>
@@ -40,7 +40,7 @@
                 <tbody>
                     @foreach ($data as $key => $user)
                     <tr>
-                        <td>{{ ++$i }}</td>
+                        <td>{{ $user->id }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
@@ -62,7 +62,7 @@
                 @endforeach
                 </tbody>
             </table>
-            {!! $data->render() !!}
+           {{--  {!! $data->render() !!} --}}
 
         
         </div>
