@@ -32,6 +32,21 @@ class CreateAdminUserSeeder extends Seeder
 
         $user->assignRole([$role->id]);
 
+        /* usuario de liss */
+        $user = User::create([
+            'name' => 'Lissette Rodriguez Najera',
+            'email' => 'lissetterodriguezn@gmail.com',
+            'password' => bcrypt('secret')
+        ]);
+
+        $role = Role::create(['name' => 'Admin']);
+
+        $permissions = Permission::pluck('id','id')->all();
+
+        $role->syncPermissions($permissions);
+
+        $user->assignRole([$role->id]);
+
         $role1 = Role::create(['name' => 'encuestado']);
         $role1->givePermissionTo([
             'encuesta-guardar',
