@@ -17,6 +17,7 @@ class Datos_generales extends Model
         'ciudad',
          'cp',
          'telefono',
+         'celular',
          'usuario_id',
     ];
 }

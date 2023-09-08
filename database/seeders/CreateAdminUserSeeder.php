@@ -57,6 +57,9 @@ class CreateAdminUserSeeder extends Seeder
         $tipo_pregunta = new Tipo_pregunta();
         $tipo_pregunta->nombre ='Casillas';
         $tipo_pregunta->save();
+        $tipo_pregunta = new Tipo_pregunta();
+        $tipo_pregunta->nombre ='Selección';
+        $tipo_pregunta->save();
 
     }
 }

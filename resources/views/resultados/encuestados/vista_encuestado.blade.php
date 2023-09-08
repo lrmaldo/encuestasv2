@@ -10,7 +10,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
+
     <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -26,14 +26,14 @@
          <img src="{{asset('/img/Logo_TECNM-1024x438.png')}}" width="250px" alt="" class="img-responsive">
         </div>
         <div class="col-3 mt-1 text-center">
-            
+
         </div>
         <div class="col-3 mt-1">
             <img src="{{asset('/img/logo_tec_tux.png')}}" width="100px" alt="" class="img-responsive ">
         </div>
       </div>
     <div class="py-5 text-center">
-       
+
         <h2>{{$encuesta->titulo}}</h2>
         <p class="lead">{{$encuesta->descripcion}}</p>
         <div class="col-md-4 offset-md-4 ">
@@ -64,9 +64,9 @@
         <div class="col-md-12 ">
             <div class=" mb-4">
                 <label for="pregunta"><strong>{{$conta_pregunta++}}. {{$pregunta->titulo}}</strong></label>
-               
-              
-              
+
+
+
                @switch($pregunta->tipo_pregunta_id)
                    @case(1)
                     @php
@@ -74,7 +74,7 @@
                                                                 ->where('usuario_id',$id_encuestado)->first();
                     @endphp
                       @if (isset($res_text->valor_respuesta))
-                      
+
                       {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', $res_text->valor_respuesta?$res_text->valor_respuesta:'no hay respuesta', ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control','required'=>'required', 'disabled'=>'disabled']) !!}
                       @else
                           {{'no hay respuesta'}}
@@ -82,7 +82,7 @@
                        @break
                    @case(2)
                     @php
-                       
+
                        $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
                     @endphp
                    <div class="form-group">
@@ -92,12 +92,12 @@
                                                                  ->where('usuario_id',$id_encuestado)->first();
                      @endphp
                         @isset($respuesta_usuario->respuesta_id)
-                            
+
                         {!! Form::radio('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_2',$item->id,$respuesta_usuario->respuesta_id=$item->id?true:false,['required'=>'required','disabled'=>'disabled'])!!}
                         {!!  Form::label('respuesta_'.$encuesta->id .'_'.$pregunta->id.'_2', $item->texto, null) !!} <br>
-                        @endisset 
-                            
-                      
+                        @endisset
+
+
                         @empty
                         <p>no hay respuesta</p>
                         @endforelse
@@ -107,10 +107,10 @@
                     @php
                         $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
                         @endphp
-                       
+
                        <div class="form-group options-{{$pregunta->id}}">
-                       
-                        
+
+
                        @forelse($res_pregunta as $value)
                        @php
                        $respuesta_usuario = App\Models\encuesta_usuario::where('encuesta_id',$encuesta->id)->where('pregunta_id',$pregunta->id)
@@ -120,11 +120,11 @@
                         {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, $respuesta_usuario->respuesta_id=$value->id?true:false, array('class' => 'name', 'required' =>'required', 'disabled'=>'disabled')) }}
                              {{ $value->texto }}
                              <br/>
-                            
+
                         @endisset
-                         
+
                         @empty
-                            
+
                         <p>No hay respuesta</p>
                         @endforelse
                         </div>
@@ -142,11 +142,30 @@
                             });
                         </script>
                     @break
+                    @case(4)
+                    @php
+                        $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
+                    @endphp
+                    <div class="form-group">
+                        <select class="form-control" name="respuesta_{{$encuesta->id}}_{{$pregunta->id}}_4" required disabled>
+                            <option disabled selected >Selecciona una opción</option>
+                            @foreach($res_pregunta as $value)
+                                @php
+                                $respuesta_usuario = App\Models\encuesta_usuario::where('encuesta_id',$encuesta->id)->where('pregunta_id',$pregunta->id)
+                                                                         ->where('usuario_id',$id_encuestado)->first();
+                                 @endphp
+                                 @isset($respuesta_usuario->respuesta_id)
+                                 <option value="{{ $value->id }}" {{$respuesta_usuario->respuesta_id==$value->id?'selected':''}}>{{ $value->texto }}</option>
+                                 @endisset
+
+                            @endforeach
+                        </select>
+                    </div>
                    @default
-                       
+
                @endswitch
 
-               
+
               </div>
           </div>
           {!! Form::text('encuesta_id', $encuesta->id, ['class' => 'form-control', ' type' => 'hidden']) !!}
@@ -154,9 +173,9 @@
         <div class="col-xs-12 col-sm-12 col-md-12 text-center ">
            {{--  <button type="submit" class="btn btn-primary">Guardar</button> --}}
         </div>
-      
+
       </div>
-      
+
 {{-- <script>
     /* para no retroceder */
     window.history.forward();
@@ -164,10 +183,10 @@
 
  </div>
 
-    
+
 
  <!-- Bootstrap core JavaScript-->
- 
+
  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
  <!-- Core plugin JavaScript-->

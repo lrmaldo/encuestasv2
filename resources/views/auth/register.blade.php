@@ -45,12 +45,12 @@
                 <h1 class="h4 text-gray-900 mb-4">Crear usuario</h1>
                 <h3 class="h6 text-gray-900 mb-4" >Programa de seguimiento a egresados y empleadores</h3>
               </div>
-             
+
                 <form  class="user" method="POST" action="{{ route('register') }}">
                     @csrf
                 <div class="form-group ">
-                  
-                   
+
+
                     <div class="py-2">
                         <input id="name" type="text"  placeholder="Nombre completo"  class=" form-control-user form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
@@ -60,7 +60,7 @@
                             </span>
                         @enderror
                     </div>
-                  
+
                 </div>
                 <div class="form-group">
                  {{--  <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address"> --}}
@@ -84,17 +84,43 @@
                     @enderror
                   </div>
                   <div class="col-sm-6">
-                    
-                    
+
+
                         <input id="password-confirm" type="password" class="form-control form-control-user" placeholder="Repetir contraseña" name="password_confirmation" required autocomplete="new-password">
-                    
+
                   </div>
                 </div>
-                
+                <div class="form-group">
+                    <label class="">¿Eres empleador?</label>
+                    <br>
+                    {{-- insertar un select con las opciones de empleado y egresado--}}
+                   {{--  <input type="radio" name="tipo_usuario" id="tipo_usuario" value="egresado" required>
+                    <label for="tipo_usuario" class="">Egresado</label>
+                    <input type="radio" name="tipo_usuario" id="tipo_usuario" value="empleado" required>
+                    <label for="tipo_usuario" class="">Empleado</label> --}}
+
+                    <select name="es_empleado" id="es_empleado" class="form-control  @error('is_egresado') is-invalid @enderror" style="border-radius: 0.35rem;" required>
+                        <option >Selecciona una opción</option>
+                        <option value="2">Sí</option>
+                        <option value="1">No</option>
+                    </select>
+                    {{-- <select name="tipo_usuario" id="tipo_usuario" class="form-control form-control-user @error('tipo_usuario') is-invalid @enderror" style="color:black !important" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="egresado">Egresado</option>
+                        <option value="empleado">Empleado</option>
+                    </select> --}}
+
+                    {{-- poner un grupo de radios uno como egresados y el otro como empleado --}}
+
+
+
+
+
+                </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">
                     {{ __('Registrar cuenta') }}
                 </button>
-               
+
               </form>
               <hr>
               <div class="text-center">

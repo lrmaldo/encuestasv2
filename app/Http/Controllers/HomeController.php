@@ -26,7 +26,8 @@ class HomeController extends Controller
     {
         $user_encuestado = Auth::user()->hasRole('encuestado');
         if($user_encuestado){
-            return view('home');
+            #return view('home');
+            return view('datos_generales.index');
 
         }else{
             return view('layouts.dashboard');

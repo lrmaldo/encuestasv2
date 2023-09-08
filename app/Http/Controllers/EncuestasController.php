@@ -182,9 +182,9 @@ class EncuestasController extends Controller
         if($buscar_datos){
             if($encuesta){
                 /* esta disponible */
-                
+
                 $contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$encuesta->id)->count();
-                
+
                 if($contestado>0){/* condicion si exite registros del usuario en la encuesta */
                     return view('encuestas.usuario.encuesta_contestado');
                 }else{
@@ -192,7 +192,7 @@ class EncuestasController extends Controller
                     $aux_e =encuesta::where('tipo_encuesta_id',$aux_tipo)->where('status',1)->first();
                     if($aux_e){/* recibir si el otro tipo de encuesta esta disponible */
                         $aux_contestado = encuesta_usuario::where('usuario_id',$id_user)->where('encuesta_id',$aux_e->id)->count();
-                     #entonces si contestado es mayor a cero y aux_contesdado es igual a cero 
+                     #entonces si contestado es mayor a cero y aux_contesdado es igual a cero
                         if($aux_contestado>0){
                             return  view('encuestas.usuario.encuesta_respondido');
                         }else{
@@ -203,7 +203,7 @@ class EncuestasController extends Controller
                         return redirect()->route('encuesta', ['id_usuario' =>$id_user, 'id_encuesta'=>$encuesta->id ]);
                     }
                 }
-                
+
             }else{
                 /* encuesta del tipo no disponible */
                 return view('encuestas.usuario.encuesta_no_disponible');
@@ -228,6 +228,7 @@ class EncuestasController extends Controller
         $datos->ciudad = $request->ciudad;
         $datos->cp = $request->cp;
         $datos->telefono = $request->telefono;
+        $datos->celular = $request->celular;
         $datos->usuario_id = Auth::user()->id;
         $datos->save();
         /* buscar si el usuario ya contesto la encuesta */
@@ -244,7 +245,7 @@ class EncuestasController extends Controller
                 //return $encuesta;
                 return redirect()->route('encuesta'  , ['id_usuario' =>$id_user, 'id_encuesta'=>$request->tipo_encuesta_id ]);
             }else{
-                return view('encuestas.usuario.encuestas_no_disponible');
+                return view('encuestas.usuario.encuesta_no_disponible');
             }
 
         }
@@ -308,6 +309,16 @@ class EncuestasController extends Controller
                     $usuario_encuesta->save();
                 }
 
+               }
+               else if($request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_4']){
+                $usuario_encuesta = new encuesta_usuario();
+                $usuario_encuesta->encuesta_id = $id_encuesta;
+                $usuario_encuesta->pregunta_id = $pregunta->id;
+                $usuario_encuesta->tipo_pregunta = 4;
+                $usuario_encuesta->respuesta_id = $request['respuesta_'.$id_encuesta.'_'.$pregunta->id.'_4'];
+                $usuario_encuesta->valor_respuesta = null;
+                $usuario_encuesta->usuario_id = $id_user;
+                $usuario_encuesta->save();
                }
 
         }

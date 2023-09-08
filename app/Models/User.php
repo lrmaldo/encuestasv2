@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'es_empleado'# 1 es egresado y 2 es empleado
     ];
 
     /**
@@ -47,17 +48,17 @@ class User extends Authenticatable
 
     public function encuesta(){
        return  $this->hasOne(encuesta_usuario::class,'usuario_id','id');
-    
+
     }
 
     public function usuario_encuesta($id){
         return $this->encuesta()->where('encuesta_id',$id)->first();
     }
-   
+
     public function Datos(){
         return $this->hasOne(Datos_generales::class,'usuario_id','id');
     }
-    
 
-   
+
+
 }

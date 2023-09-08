@@ -10,7 +10,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
+
     <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -26,14 +26,14 @@
          <img src="{{asset('/img/Logo_TECNM-1024x438.png')}}" width="250px" alt="" class="img-responsive">
         </div>
         <div class="col-3 mt-1 text-center">
-            
+
         </div>
         <div class="col-3 mt-1">
             <img src="{{asset('/img/logo_tec_tux.png')}}" width="100px" alt="" class="img-responsive ">
         </div>
       </div>
     <div class="py-5 text-center">
-       
+
         <h2>{{$encuesta->titulo}}</h2>
         <p class="lead">{{$encuesta->descripcion}}</p>
       </div>
@@ -47,9 +47,9 @@
         <div class="col-md-12 ">
             <div class=" mb-4">
                 <label for="firstName"><strong>{{$conta_pregunta++}}. {{$pregunta->titulo}}</strong></label>
-               
-              
-              
+
+
+
                @switch($pregunta->tipo_pregunta_id)
                    @case(1)
                    {!! Form::text('respuesta_'.$encuesta->id.'_'.$pregunta->id.'_1', null, ['placeholder' => 'Escribe tu respuesta', 'class' => 'form-control']) !!}
@@ -71,9 +71,9 @@
                     @php
                         $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
                         @endphp
-                       
+
                        <div class="form-group options-{{$pregunta->id}}">
-                       
+
                        @foreach($res_pregunta as $value)
                            {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, false, array('class' => 'name', 'required' =>'required')) }}
                                 {{ $value->texto }}
@@ -94,8 +94,20 @@
                             });
                         </script>
                     @break
+                    @case(4)
+                    @php
+                        $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
+                    @endphp
+                    <div class="form-group">
+                        <select class="form-control" name="respuesta_{{$encuesta->id}}_{{$pregunta->id}}_4" required>
+                            <option disabled selected >Selecciona una opción</option>
+                            @foreach($res_pregunta as $value)
+                                <option value="{{ $value->id }}">{{ $value->texto }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                    @default
-                       
+
                @endswitch
 
                 <div class="invalid-feedback">
@@ -110,7 +122,7 @@
         </div>
         {!! Form::close() !!}
       </div>
-      
+
 <script>
     /* para no retroceder */
     window.history.forward();
@@ -118,10 +130,10 @@
 
  </div>
 
-    
+
 
  <!-- Bootstrap core JavaScript-->
- 
+
  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
  <!-- Core plugin JavaScript-->

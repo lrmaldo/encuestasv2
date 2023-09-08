@@ -12,11 +12,11 @@
                     @foreach (App\Models\Tipo_encuesta::all() as $item)
                     {!! Form::radio('tipo_encuesta_id',$item->id,false)!!}
                     {!!  Form::label('tipo_encuesta_id', $item->nombre, null) !!} <br>
-        
+
                     @endforeach
                     <div class="col-xs-12 col-sm-12 col-md-12 ">
                         <button type="submit" class="btn btn-primary">Continuar</button>
                     </div>
-                
+
                     {!! Form::close() !!}
                 </div>
