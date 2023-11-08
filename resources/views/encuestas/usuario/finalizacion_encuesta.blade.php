@@ -10,7 +10,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
+
     <!-- Custom fonts for this template-->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -29,7 +29,7 @@
              <img src="{{asset('/img/Logo_TECNM-1024x438.png')}}" width="250px" alt="" class="img-responsive">
             </div>
             <div class="col-3 mt-1 text-center">
-                
+
             </div>
             <div class="col-3 mt-1">
                 <img src="{{asset('/img/logo_tec_tux.png')}}" width="100px" alt="" class="img-responsive ">
@@ -37,17 +37,26 @@
           </div>
         <div class="py-5 text-center">
         <h2 class="animate__animated animate__fadeInDown">Gracias por contestar esta encuesta</h2>
-        <p></p>
-        <a class="btn btn-info animate__animated animate__fadeInUp animate__delay-1s" href="{{ route('home') }}"> Regresar</a>
-        </div>
-     
+        <p>Gracias por su amable colaboración</p>
+        <p>
+            Lo invitamos cordialmente a continuar participando con el Tecnológico Nacional de México campus Tuxtepec, aportando sus opiniones y/o sugerencias en el momento que usted lo considere oportuno a través del responsable del seguimiento de egresados, <a href="mailto:seguimientodeegresadosenmca@gmail.com">seguimientodeegresadosenmca@gmail.com</a>
+        </p>
+       {{--  <a class="btn btn-info animate__animated animate__fadeInUp animate__delay-1s" href="{{ route('home') }}"> Regresar</a>
+        </div> --}}
+        {{-- button de salir --}}
+        <a class="btn btn-info animate__animated animate__fadeInUp animate__delay-1s text-white" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Salir</a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 <script>
     /* para no retroceder */
 
     window.history.forward();
+
 </script>
-    
+
 
  <!-- Bootstrap core JavaScript-->
  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
@@ -58,5 +67,9 @@
 
  <!-- Custom scripts for all pages-->
  <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
+
+
+
+
 </body>
 </html>
