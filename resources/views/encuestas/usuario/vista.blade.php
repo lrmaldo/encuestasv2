@@ -75,7 +75,7 @@
                        <div class="form-group options-{{$pregunta->id}}">
 
                        @foreach($res_pregunta as $value)
-                           {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, false, array('class' => 'name', 'required' =>'required')) }}
+                           {{ Form::checkbox('respuestas_casilla_'.$encuesta->id.'_'.$pregunta->id.'_3'.'[]', $value->id, false, array('class' => 'name')) }}
                                 {{ $value->texto }}
                                 <br/>
                             @endforeach
@@ -99,7 +99,7 @@
                         $res_pregunta = App\Models\Respuesta::where('pregunta_id','=',$pregunta->id)->get();
                     @endphp
                     <div class="form-group">
-                        <select class="form-control" name="respuesta_{{$encuesta->id}}_{{$pregunta->id}}_4" required>
+                        <select class="form-control" name="respuesta_{{$encuesta->id}}_{{$pregunta->id}}_4" >
                             <option disabled selected >Selecciona una opción</option>
                             @foreach($res_pregunta as $value)
                                 <option value="{{ $value->id }}">{{ $value->texto }}</option>
