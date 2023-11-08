@@ -38,6 +38,18 @@
         <div class="py-5 text-center">
         <h2 class="animate__animated animate__fadeInDown ">Gracias ya has contestado esta encuesta</h2>
         <p></p>
+        @if (auth()->es_empleado==2)
+        <p>
+            Gracias por su amable colaboración
+
+Lo invitamos cordialmente a continuar participando con el Tecnológico Nacional de México campus
+Tuxtepec, aportando sus opiniones y/o sugerencias en el momento que usted lo considere oportuno a
+través del responsable del seguimiento de egresados, seguimientodeegresadosenmca@gmail.com
+        </p>
+            @else
+
+
+        @endif
         <a class="btn btn-info animate__animated animate__fadeInUp animate__delay-1s" href="{{ route('home') }}"> Regresar</a>
         </div>
 

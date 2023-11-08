@@ -101,17 +101,6 @@
                         <div class="row col-sm-12">
                             <div class="col-xs-12 col-sm-12 col-md-6 ">
                                 <div class="form-group">
-                                    <strong>Teléfono:</strong>
-                                    {!! Form::number('telefono', null, [
-                                        'placeholder' => '2870000000',
-                                        'class' => 'form-control',
-                                        'min' => '0',
-                                        'required' => 'required',
-                                    ]) !!}
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-6 ">
-                                <div class="form-group">
                                     <strong>Celular:</strong>
                                     {!! Form::number('celular', null, [
                                         'placeholder' => '2870000000',
@@ -123,6 +112,18 @@
 
 
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 ">
+                                <div class="form-group">
+                                    <strong>Teléfono:</strong>
+                                    {!! Form::number('telefono', null, [
+                                        'placeholder' => '2870000000',
+                                        'class' => 'form-control',
+                                        'min' => '0',
+                                       # 'required' => 'required',
+                                    ]) !!}
+                                </div>
+                            </div>
+
                         </div>
                         {!! Form::text('tipo_encuesta_id', Auth::user()->es_empleado, ['class' => 'form-control', ' type' => 'hidden']) !!}
 
